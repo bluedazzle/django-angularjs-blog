@@ -1,0 +1,48 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="blog"/>
+
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+    <link href="css/vendor/bootstrap.min.css" rel="stylesheet">
+    <!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
+    <link href="css/my-ui.css" rel="stylesheet">
+    <title>{% block title %}{{ blogtitle }}{% endblock %}</title>
+</head>
+<body>
+{% verbatim %}
+<div class="container">
+    <div ng-app="" ng-controller="studentController">
+        <h1>{{ tt }}</h1>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Roll No</th>
+                <th>Percentage</th>
+            </tr>
+            <tr ng-repeat="blog in blogs">
+                <td>{{ blog.caption }}</td>
+                <td>{{ blog.create_time }}</td>
+                <td>{{ blog.read_count }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endverbatim %}
+<script>
+    function studentController($scope, $http) {
+        $scope.tt = '1111';
+        var url = "http://localhost:8000/bd";
+        var a = $http.get(url).success(function (response) {
+            $scope.blogs = response.body.blog_list;
+            $scope.ss = 222;
+        });
+    }</script>
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/flat-ui.min.js"></script>
+<script src="js/stickUp.min.js"></script>
+<script src="js/sco/sco.collapse.js"></script>
+<script src="http://apps.bdimg.com/libs/angular.js/1.2.5/angular.min.js"></script>
+</body>
+</html>

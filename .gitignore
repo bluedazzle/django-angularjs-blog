@@ -1,0 +1,7 @@
+*.pyc
+*.pyo
+*.sqlite3
+.idea/
+.idea
+.DS_Store
+NewRaPo/settings/produce.py

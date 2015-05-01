@@ -1,0 +1,45 @@
+{% extends "admin_base.html" %}
+<title>{% block title %}RaPo管理｜Python&Django{% endblock %}</title>
+{% block content %}
+    <div class="container">
+        {% verbatim %}
+        <div class="container" ng-controller="knowListAdminController">
+            <div class="article" style="margin-bottom: 1000px;">
+                <div class="text-right" style="margin-top:10px;"><a class="btn btn-primary btn-lg"
+                                                                    href="/blog_admin/create_know/">新姿势</a></div>
+                <h2>姿势列表</h2>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>问题</th>
+                        <th>创建时间</th>
+                        <th>修改时间</th>
+                        <th>发布</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="know in know_list">
+                        <th scope="row">{{ know.id }}</th>
+                        <td>{{ know.question }}</td>
+                        <td>{{ know.create_time }}</td>
+                        <td>{{ know.modify_time }}</td>
+                        <td>{{ know.publish }}</td>
+                        <td style="width:220px;">
+                            <a href="/blog_admin/create_know/{{ know.id }}/" class="btn btn-primary">修改</a>
+                            <a href="" class="btn btn-primary" ng-click="blogOpt(2,know.id)">删除</a>
+                            <a href="" class="btn btn-primary" ng-hide="know.publish"
+                               ng-click="blogOpt(3,know.id)">发布</a>
+                            <a href="" class="btn btn-primary" ng-show="know.publish"
+                               ng-click="blogOpt(3,know.id)">下线</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endverbatim %}
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}RaPo博客｜Django&Python{% endblock %}
+{% block content %}
+    {% verbatim %}
+    <div ng-cloak class="ng-cloak" ng-controller="blogController">
+        <div class="myContianer">
+            <div class="article" ng-repeat="blog in blogs">
+                <h1 class="text-center">{{ blog.caption }}</h1>
+
+                <div style="display:inline;">
+                    <a href="/classify/{{ blog.classify.id }}/"><span class="label label-primary">{{ blog.classify.c_name }}</span></a>
+                    <a href="/tag/{{ tag.id }}/" ng-repeat="tag in blog.tags"><span class="label label-success">{{ tag.tag_name }}</span></a>
+                </div>
+                <div class="art-time">
+                    <span class="">{{ blog.create_time | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+                </div>
+                <div class="art-tag"></div>
+                <div class="art-content" ng-bind-html="blog.content | trustHtml"></div>
+                <div class="art-footer">
+                    <div style="display:inline"><a href="/blog/{{ blog.id }}/" ng-click="detail(blog.id)"><span
+                            class="label label-primary">阅读全文</span></a></div>
+                    <div class="art-ass">
+                        <small>阅读：{{ blog.read_count }} 评论：{{ blog.comment_count }}</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="text-center" style="margin-top:20px;">
+            <div class="pagination pagination-minimal">
+                <ul style="background:#34495e;">
+                    <li class="previous"><a ng-click="req_http(pagination.pre)" class="fui-arrow-left"
+                                            style="cursor: pointer;"></a></li>
+
+                    <li ng-repeat="i in pagination.page_list"><a ng-click="req_http(i.page)" style="cursor: pointer;">{{
+                        i.page }}</a></li>
+                    <li class="next"><a ng-click="req_http(pagination.next)" class="fui-arrow-right"
+                                        style="cursor: pointer;"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endverbatim %}
+
+{% endblock %}

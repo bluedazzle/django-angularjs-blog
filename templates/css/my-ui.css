@@ -1,0 +1,52 @@
+.todo li:hover {
+    background-color: #2C3E50;
+    color: #3498db;
+}
+
+.todo-name {
+    transition: .25s;
+}
+
+.todo-name:hover {
+    color: #3498db;
+}
+
+.todo li:first-child {
+    text-align: center;
+    font-size: 30px;
+    color: white;
+}
+
+.todo li:last-child {
+    border-bottom: 1px solid rgb(44, 62, 80);
+    border-radius: 0;
+}
+
+.article {
+    background: white;
+    margin-top: 40px;
+    box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 1 20;
+}
+
+.art-time {
+    display: inline;
+    float: right;
+}
+
+.art-tag {
+    height: 1px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.art-footer {
+    margin-bottom: 25px;
+}
+
+.art-ass {
+    cursor: default;
+    display: inline;
+    float: right;
+}

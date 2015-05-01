@@ -1,0 +1,51 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="blog"/>
+    <link href="/img/header.png" rel="shortcut icon"/>
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+    <link href="/css/vendor/bootstrap.min.css" rel="stylesheet">
+    <!-- Loading Flat UI -->
+    <link href="/css/flat-ui.css" rel="stylesheet">
+    <link href="/css/my-ui.css" rel="stylesheet">
+    <link href="/css/wmd.css" rel="stylesheet">
+    <link href="/css/prism.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/angular.js/1.2.5/angular.min.js"></script>
+    <title>RaPo管理</title>
+</head>
+<body style="background:#3498db;" ng-app="adminApp" ng-controller="loginAdminController">
+{% verbatim %}
+<div class="container">
+    <div class="login-screen">
+    </div>
+    <form class="login-form" style="margin-left:20%; margin-right: 20%;" ng-submit="loginOpt()">
+        <span ng-show="haveError" style="color:red;">{{ errMes }}</span>
+
+        <div class="form-group">
+            <label for="account">用户名</label>
+            <input type="text" ng-model="accountData.account" ng-change="mesChange()" class="form-control"
+                   id="accountinput"
+                   placeholder="用户名">
+        </div>
+        <div class="form-group">
+            <label for="pass">密码</label>
+            <input type="password" ng-change="mesChange()" ng-model="accountData.password" class="form-control"
+                   id="passwordinput"
+                   placeholder="密码">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-large btn-block">登陆</button>
+    </form>
+</div>
+
+
+</div>
+</div>
+{% endverbatim %}
+<script src="/js/blogapp.js"></script>
+<script src="/js/vendor/jquery.min.js"></script>
+<script src="/js/wmd.js"></script>
+<script src="/js/showdown.js"></script>
+<script src="/js/flat-ui.min.js"></script>
+</body>
+</html>

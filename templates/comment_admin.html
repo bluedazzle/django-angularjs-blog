@@ -1,0 +1,123 @@
+{% extends "admin_base.html" %}
+<title>{% block title %}RaPo管理｜Python&Django{% endblock %}</title>¬
+{% block content %}
+    {% verbatim %}
+    <div class="container" ng-controller="commentListAdminController" xmlns="http://www.w3.org/1999/html">
+        <div class="article" style="margin-bottom: 1000px;">
+            <h2>评论列表</h2>
+            <div ng-repeat="comment in comment_list">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>所属</th>
+                        <th>作者</th>
+                        <th>内容</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{ comment.id }}</th>
+                        <td>{{ comment.belong }}</td>
+                        <td>{{ comment.author }}</td>
+                        <td>{{ comment.content }}</td>
+                        <td>{{ comment.create_time }}</td>
+                        <td style="width:220px;">
+                            <a data-toggle="modal"
+                               data-target='.newReply{{ comment.id }}' class="btn btn-primary">回复</a>
+
+                            <div class="modal fade bs-example-modal-sm newReply{{ comment.id }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="container">
+                                            <h3>新回复</h3>
+
+                                            <div>
+                                                <div style="margin-bottom: 10px;">
+                                                    <input type="text" style="width:250px;" ng-model="newR"
+                                                           class="form-control flat"
+                                                           id="reply{{ comment.id }}"
+                                                           placeholder="新评论">
+                                                    <br/>
+                                                    <button type="button" ng-click="commentOptNew(1, comment.id, '')"
+                                                            class="btn btn-primary">
+                                                        确定
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="" class="btn btn-primary" ng-click="commentOptDel(1,comment.id)">删除</a>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <ul ng-show="comment.reply">
+                    <li ng-repeat="replys in comment.reply_list">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>作者</th>
+                                <th>回复</th>
+                                <th>内容</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">{{ replys.id }}</th>
+                                <td>{{ replys.author }}</td>
+                                <td>{{ replys.to }}</td>
+                                <td>{{ replys.content }}</td>
+                                <td>{{ replys.create_time }}</td>
+                                <td style="width:220px;">
+                                    <a data-toggle="modal"
+                                       data-target='.newsReplys{{ replys.id }}' class="btn btn-primary">回复</a>
+
+                                    <div class="modal fade bs-example-modal-sm newsReplys{{ replys.id }}" tabindex="-1"
+                                         role="dialog"
+                                         aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="container">
+                                                    <h3>新回复</h3>
+
+                                                    <div>
+                                                        <div style="margin-bottom: 10px;">
+                                                            <input type="text" style="width:250px;"
+                                                                   class="form-control flat" id="replys{{ replys.id }}" placeholder="新评论">
+                                                            <br/>
+                                                            <button type="button"
+                                                                    ng-click="commentOptNew(2, comment.id, replys.id)"
+                                                                    class="btn btn-primary">
+                                                                确定
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <a href="" class="btn btn-primary" ng-click="commentOptDel(2, replys.id)">删除</a>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div></div>
+    {% endverbatim %}
+{% endblock %}

@@ -1,0 +1,191 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="个人博客,rapospectre,个人博客模板,rapo,个人网站模版,django,python,网站建设">
+    <meta name="description" content="rapospectre的个人网站，web知识与探索，django与python技术资料，网页模版下载，个人网站建设"/>
+    <link href="/img/header.png" rel="shortcut icon" />
+    {#    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">#}
+    {#<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">#}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/css/vendor/bootstrap.min.css" rel="stylesheet">
+    <!-- Loading Flat UI -->
+    <link href="/css/flat-ui.css" rel="stylesheet">
+    <link href="/css/my-ui.css" rel="stylesheet">
+    <link href="/css/prism.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/angular.js/1.2.5/angular.min.js"></script>
+    <title>{% block title %}{{ blogtitle }}{% endblock %}</title>
+</head>
+<body ng-cloak class="ng-cloak" style="background:#34495E;" ng-app="blogApp">
+<div>
+    <div class="jumbotron hidden-md hidden-lg" style="background:#3498DB;margin-bottom:0px">
+        <div class="container text-center">
+            <img src="/img/MYLOGOs.png" alt="">
+
+            <h1>Python&Django</h1>
+            <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p> -->
+        </div>
+    </div>
+    <div class="jumbotron hidden-sm hidden-xs" style="background:#3498DB;margin-bottom:0px">
+        <div class="container">
+            <h1 class=""><img src="/img/MYLOGO3.png" alt="">RaPoSpectre's Site
+                <small>Pythoner&Dotaer</small>
+            </h1>
+            <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p> -->
+        </div>
+    </div>
+    <nav id="mynav" class="navbar navbar-default navbar-embossed" role="navigation"
+         style="margin-bottom:0px; z-index:9999; width:100%;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand" href="#">RaPo</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-01">
+            <ul class="nav navbar-nav">
+                <li><a href="/">首页</a></li>
+                <li><a href="/blog">博客</a></li>
+                <li><a href="/knowledge">姿势</a></li>
+                <li><a href="/lab">实验室</a></li>
+                <li><a href="/me">关于</a></li>
+                <li><a href="/code">源码</a></li>
+            </ul>
+            <form class="navbar-form navbar-right" action="#" role="search">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" id="navbarInput-01" type="search" placeholder="其实这里还没做好">
+          <span class="input-group-btn">
+            <button type="submit" class="btn"><span class="fui-search"></span></button>
+          </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+    <div class="raw">
+        <div>
+            {% verbatim %}
+            <div class="col-md-3 hidden-xs hidden-sm"
+                 style=" padding-bottom:200px; padding-left:0px;padding-right:0px;background:#34495e; box-shadow: inset -2px -2px -2px rgba(0, 0, 0, 0.15);">
+
+                <div ng-cloak class="ng-cloak" ng-controller="toolController">
+                    <div class="todo">
+                        <ul>
+                            <li>
+                                <span href="">最新发布</span>
+                            </li>
+                            <li ng-repeat="latest in latest_list">
+                                <div class="todo-icon fui-time"></div>
+                                <div class="todo-content">
+                                    <h4 class="todo-name">
+                                        <a class="todoa" href="/blog/{{ latest.id }}/">
+                                            <div><h4>{{ latest.caption }}</h4></div>
+                                        </a>
+                                    </h4>
+                                    {{ latest.create_time }}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="todo">
+                        <ul>
+                            <li>
+                                <span>分类</span>
+                            </li>
+                            <li ng-repeat="classify in classifies">
+                                <div class="todo-icon fui-list"></div>
+                                <div class="todo-content">
+                                    <h4 class="todo-name">
+                                        <a class="todoa" href="/classify/{{ classify.id }}">
+                                            <div><h4>{{ classify.c_name }}</h4></div>
+                                        </a>
+                                    </h4>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="todo" style="padding-bottom: 100px;">
+                        <ul>
+                            <li>
+                                <span>阅读排行</span>
+                            </li>
+                            <li ng-repeat="read in read_list">
+                                <div class="todo-icon fui-eye"></div>
+                                <div class="todo-content">
+                                    <h4 class="todo-name">
+                                        <a class="todoa" href="/blog/{{ read.id }}/">
+                                            <div><h4>{{ read.caption }}</h4></div>
+                                        </a>
+                                    </h4>
+                                    阅读：{{ read.read_count }}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div style="color:#ffffff;margin: 5%;">
+                        <div class="row">
+                            <div class="col-md-12">Powered By</div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <a href="https://www.python.org/" target="_blank" class="col-md-6">
+                                <img src="/img/foot-logo-python.png" width="200px" height="50px" alt=""/>
+                            </a>
+                            <a href="https://angularjs.org/" target="_blank">
+                                <img src="/img/AngularJS.png" width="200px" height="50px" alt=""/>
+                            </a>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <a href="http://www.bootcss.com/" target="_blank" class="col-md-6">
+                                <img src="/img/foot-logo-bootstrap.png" width="200px" height="50px" alt=""/>
+                            </a>
+                            <a href="https://www.djangoproject.com/">
+                                <img src="/img/django-footer.png" width="200px" height="50px" alt=""/>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endverbatim %}
+            <div class="col-md-9 col-sm-12 col-xs-12" style=" padding-bottom:2000px;background:#E4E0E0;">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+        </div>
+
+    </div>
+    <footer class="navbar navbar-default navbar-fixed-bottom hidden-sm hidden-xs" role="navigation">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav">
+                <li><a href="/" title="">返回首页</a></li>
+                <li><a href="#" title="">与我联系</a></li>
+                <li><a href="/blog_admin/" title="">管理登陆</a></li>
+            </ul>
+
+        </div>
+        <span class="navbar-text navbar-right" style="margin-right: 30px;">Designed by <b><i>RaPoSpectre</i></b> | Copyright 2014-2015 蜀ICP备14027983号-3</span>
+    </footer>
+    <script src="/js/blogapp.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/js/flat-ui.min.js"></script>
+    <script src="/js/stickUp.min.js"></script>
+    <script src="/js/sco/sco.collapse.js"></script>
+    <script src="/js/sco/sco.message.js"></script>
+    <script src="/js/prism.js"></script>
+    <script type="text/javascript">
+        //initiating jQuery
+        jQuery(function ($) {
+            $(document).ready(function () {
+                //enabling stickUp on the '.navbar-wrapper' class
+                $('#mynav').stickUp();
+            });
+        });
+
+    </script>
+</body>
+</html>

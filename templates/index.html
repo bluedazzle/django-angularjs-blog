@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}RaPoSpectre的个人博客｜Django&Python{% endblock %}
+{% block content %}
+    {% verbatim %}
+    <div class="myContianer">
+        <div class="index page-header">
+            <h1>欢迎来到Rapo的窝
+                <small>首页还没想好放什么 2333</small>
+            </h1>
+            <small>算了，先放最新的文章吧。。。</small>
+        </div>
+        <div class="article" ng-controller="indexController">
+            <h1 class="text-center">{{ blog.caption | trustHtml }}</h1>
+
+            <div style="display:inline;">
+                <a href="/classify/{{ blog.classification.id }}/"><span
+                        class="label label-primary">{{ blog.classification.c_name }}</span></a>
+                <a href="/tag/{{ tag.id }}/" ng-repeat="tag in blog.tags"><span
+                        class="label label-success">{{ tag.tag_name }}</span></a>
+            </div>
+            <div class="art-time">
+                <span class="">{{ blog.create_time }}</span>
+            </div>
+            <div class="art-tag"></div>
+            <div class="art-content" ng-bind-html="blog.content | trustHtml"></div>
+            <div class="art-footer">
+                <div class="art-ass">
+                    <small>阅读：{{ blog.read_count }} 评论：{{ blog.comment_count }}</small>
+                </div>
+                <ul class="pagination-plain">
+                    <li class="previous">
+                        <a href="/blog/{{ pagination.pre_id }}/">{{ pagination.pre_title }} 上一篇</a>
+                    </li>
+                    <li class="next">
+                        <a href="/blog/{{ pagination.next_id }}/">下一篇 {{ pagination.next_title }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <a id="_pinganTrust" target="_blank" href="http://c.trustutn.org/s/rapospectre.com"></a>
+    <script type="text/javascript" src="http://c.trustutn.org/show?type=3&sn=201505011007625088"></script>
+    {% endverbatim %}
+{% endblock %}

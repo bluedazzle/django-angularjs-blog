@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}RaPo博客｜Django&Python{% endblock %}
+{% block content %}
+    {% verbatim %}
+    <div ng-cloak class="ng-cloak" ng-controller="blogDetailController">
+        <div class="myContianer">
+            <div class="article">
+                <h1 class="text-center">{{ blog.caption | trustHtml }}</h1>
+
+                <div style="display:inline;">
+                    <a href="/classify/{{ blog.classification.id }}/"><span class="label label-primary">{{ blog.classification.c_name }}</span></a>
+                    <a href="/tag/{{ tag.id }}/" ng-repeat="tag in blog.tags"><span class="label label-success" >{{ tag.tag_name }}</span></a>
+                </div>
+                <div class="art-time">
+                    <span class="">{{ blog.create_time }}</span>
+                </div>
+                <div class="art-tag"></div>
+                <div class="art-content" ng-bind-html="blog.content | trustHtml"></div>
+                <div class="art-footer">
+                    <div class="art-ass">
+                        <small>阅读：{{ blog.read_count }} 评论：{{ blog.comment_count }}</small>
+                    </div>
+                    <ul class="pagination-plain">
+                        <li class="previous">
+                            <a href="/blog/{{ pagination.pre_id }}/">{{ pagination.pre_title }} 上一篇</a>
+                        </li>
+                        <li class="next">
+                            <a href="/blog/{{ pagination.next_id }}/">下一篇 {{ pagination.next_title }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="article comment" ng-show="have_comment">
+                <div ng-repeat="comment in comments" class="comment" style="margin-top: 5px; margin-bottom: 5px;">
+                    <div class="row">
+                        <div class="col-md-2 text-center">
+                            <img src="/img/{{ comment.avatar }}" width="100px" height="100px" alt=""/>
+
+                            <p>{{ comment.author }}</p>
+                        </div>
+                        <div class="col-md-10" style="">
+                            <span class="comment-type">{{ comment.author }}评论：</span>
+
+                            <div>{{ comment.content }}</div>
+                        </div>
+                    </div>
+                    <div class="comment-bottom text-right" style="border-bottom: 2px solid darkgray">
+                        <span>{{ comment.create_time }}<a ng-click="reply()">回复</a></span>
+                    </div>
+                    <div ng-repeat="reply in comment.reply" class="row reply">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2 text-center">
+                                <img src="/img/{{ reply.avatar }}" width="100px" height="100px" alt=""/>
+
+                                <p>{{ reply.author }}</p>
+                            </div>
+                            <div class="col-md-9">
+                                <span class="comment-type">{{ reply.author }} 回复 {{ reply.to }}：</span>
+
+                                <div>{{ reply.content }}</div>
+                            </div>
+                        </div>
+                        <div class="comment-bottom text-right">
+                            <span>{{ reply.create_time }}<a href="#">回复</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="article text-center " ng-hide="have_comment">
+                <h2>
+                    <small style="cursor: default;">暂无评论</small>
+                </h2>
+            </div>
+            <div class="article" ng-controller="commentController">
+                <div class="read-comment">
+                    {% endverbatim %}
+                    <form class="form-inline text-right" ng-submit="processForm()">
+                        {{ csrf_token }}
+                        <div ng-class='{"has-error": content}'>
+                            <span ng-show="content">请输入评论～</span>
+                            <textarea ng-change="contentChange()" name="" style="width: 100%" class="form-control"
+                                      id="comment" ng-model="commentData.content" rows="10"></textarea>
+                        </div>
+                        <br/>
+
+                        <div class="form-group" style="display: none;">
+                            <span ng-model="master">回复：{{ master }}</span>
+                            <input type="checkbox" ng-model="reply"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="exampleInputEmail3">Email address</label>
+                            <input type="text" class="form-control" id="nick" ng-model="commentData.nick"
+                                   placeholder="输入昵称(可选)">
+                        </div>
+                        <div class="form-group" ng-class='{"has-error": verify}'>
+                            <label class="sr-only" for="exampleInputPassword3">Password</label>
+                            <input ng-change="verifyChange()" ng-model="commentData.verify" type="text"
+                                   class="form-control" id="verify" placeholder="输入验证码">
+                            <span ng-show="verify"><small>请输入验证码~</small></span>
+                        </div>
+                        {% verbatim %}
+                        <a href=""><img src="/verify/{{ verifyp }}" ng-click="refresh_req()" alt=""/></a>
+                        {% endverbatim %}
+                        <button type="submit" class="btn btn-primary">评论</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

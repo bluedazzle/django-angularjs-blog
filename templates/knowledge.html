@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}RaPo知识｜Django&Python{% endblock %}
+{% block content %}
+    {% verbatim %}
+    <div ng-cloak class="ng-cloak" ng-controller="knowController">
+        <div class="myContianer">
+            <div class="article">
+                <div class="page-header">
+                    <h1>姿势库
+                        <small>这里有我遇到各种问题的姿势哦</small>
+                    </h1>
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="search_text" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" ng-click="search_http()" type="button">姿势一下</button>
+      </span>
+                    </div>
+                    <!-- /input-group -->
+                </div>
+            </div>
+            <div class="sidenav">
+                <div class="article" style="cursor:pointer" ng-repeat="know in knowledges">
+                    <div href="#" data-trigger="collapse" class="active" data-parent=".sidenav">
+                        <h1>Q：{{ know.question }}</h1>
+
+                        <div style="display:inline;">
+                            <span class="label label-danger">env :</span>
+                            <span class="label label-primary" ng-repeat="env in know.env">{{ env.content }}</span>
+                        </div>
+                        <div class="art-time">
+                            <span class="">{{ know.create_time }}</span>
+                        </div>
+                        <div class="art-tag"></div>
+                    </div>
+                    <div class="art-content collapsible">
+                        <div><h1>Answer：</h1></div>
+                        <div ng-bind-html="know.answer | trustHtml"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="text-center" style="margin-top:20px;">
+            <div class="pagination pagination-minimal">
+                <ul style="background:#34495e;">
+                    <li class="previous"><a ng-click="req_http(pagination.pre)" class="fui-arrow-left"
+                                            style="cursor: pointer;"></a></li>
+                    <li ng-repeat="i in pagination.page_list"><a ng-click="req_http(i.page)" style="cursor: pointer;">{{
+                        i.page }}</a></li>
+                    <li class="next"><a ng-click="req_http(pagination.next)" class="fui-arrow-right"
+                                        style="cursor: pointer;"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endverbatim %}
+{% endblock %}

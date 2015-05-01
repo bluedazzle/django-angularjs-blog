@@ -1,0 +1,35 @@
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+from app.blog_admin import views
+
+urlpatterns = patterns('',
+    # Examples:
+    # url(r'^$', 'NewRaPo.views.home', name='home'),
+    # url(r'^blog/', include('blog.urls')),
+    url(r'^$', views.index),
+    url(r'^blog_admin$', views.blog),
+    url(r'^login$', views.login),
+    url(r'^know_admin$', views.know_admin),
+    url(r'^create_blog/$', views.create_blog),
+    url(r'^create_know/$', views.know),
+    url(r'^create_know/(?P<kid>(.*)+)/$', views.know),
+    url(r'^create_blog/(?P<bid>(.*)+)/$', views.create_blog),
+    url(r'^know$', views.know),
+    url(r'^blog_util/$', views.get_blog_util),
+    url(r'^blog_util/(?P<bid>(.*)+)/$', views.get_blog_util),
+    url(r'^new_blog$', views.new_blog),
+    url(r'^new_tag$', views.new_tag),
+    url(r'^new_classify$', views.new_classify),
+    url(r'^new_env$', views.new_env),
+    url(r'^new_know$', views.new_know),
+    url(r'^get_env/$', views.get_env),
+    url(r'^get_env/(?P<kid>(.*)+)/$', views.get_env),
+    url(r'^know_list$', views.know_list),
+    url(r'^comment_list$', views.comment_list),
+    url(r'^comment_admin$', views.comment_admin),
+    url(r'^blog_list$', views.blog_list),
+    url(r'^blog_opt$', views.blog_opt),
+    url(r'^know_opt$', views.know_opt),
+    url(r'^comment_opt_del$', views.comment_opt_del),
+    url(r'^comment_opt_new$', views.comment_opt_new),
+)

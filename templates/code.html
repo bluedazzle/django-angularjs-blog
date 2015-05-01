@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}RaPo源码｜Django&Python{% endblock %}
+{% block content %}
+    <div class="mycontianer">
+        <div class="article" style="cursor:pointer">
+            <div href="#">
+                <h1>New RaPo's Site</h1>
+
+                <div class="art-time">
+                    <span class="">更新时间：2015-04-21</span>
+
+                </div>
+                <br/>
+                    <p>RaPo’s Site 2.0 版。很早就不爽之前博客的界面了
+                        （当时设计的时候还是觉得很漂亮的@_@）于是开始折腾。。。
+                        开始边看angularjs边做，前端使用了flatui ＋ angularjs，后端依旧django，
+                        不过这次尝试了前后分离，但是做的很基础，就当新学angularjs练手啦。</p>
+                <div class="art-tag"></div>
+            </div>
+            <div class="art-content collapsible">
+                <div><h1>Resource：</h1>
+                    <a href="https://github.com/bluedazzle/newraposite" target="_blank" class="btn btn-primary" style="margin-right: 5px;">源码</a>
+                    <a href="" class="btn btn-primary">PSD</a></div>
+            </div>
+
+        </div>
+        <div class="article" style="cursor:pointer">
+            <div href="#">
+                <h1>Old RaPo's Site</h1>
+
+                <div class="art-time">
+                    <span class="">更新时间：2015-01-21</span>
+                </div>
+                <div class="art-tag"></div>
+            </div>
+            <br/>
+            <div class="art-content collapsible">
+                <p>本人写的第一版博客，后端使用python语言基于Djanog框架。为了熟悉前端的一些基础知识，
+                    所以前端从设计到写成没有使用任何框架，写的比较基础。
+                    后台部分完成了博客基本的功能，但是后台没有写，用的还是django的管理后台。
+                    这一版总之很基础啦，写的也很渣，做做参考就可以了～～</p>
+                <p>另外第一版博客的psd设计原稿也提供下载了～</p>
+                <div><h1>Resource：</h1>
+                    <a href="https://github.com/bluedazzle/RapoSite" target="_Blank" class="btn btn-primary"
+                       style="margin-right: 5px;">源码</a>
+                    <a href="/file/rapopsd.zip" class="btn btn-primary">PSD</a></div>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
