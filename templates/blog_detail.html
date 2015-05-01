@@ -9,7 +9,7 @@
 
                 <div style="display:inline;">
                     <a href="/classify/{{ blog.classification.id }}/"><span class="label label-primary">{{ blog.classification.c_name }}</span></a>
-                    <a href="/tag/{{ tag.id }}/" ng-repeat="tag in blog.tags"><span class="label label-success" >{{ tag.tag_name }}</span></a>
+                    <a href="/tag/{{ tag.id }}/" ng-repeat="tag in blog.tags"><span class="label label-success">{{ tag.tag_name }}</span></a>
                 </div>
                 <div class="art-time">
                     <span class="">{{ blog.create_time }}</span>

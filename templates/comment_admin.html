@@ -5,6 +5,7 @@
     <div class="container" ng-controller="commentListAdminController" xmlns="http://www.w3.org/1999/html">
         <div class="article" style="margin-bottom: 1000px;">
             <h2>评论列表</h2>
+
             <div ng-repeat="comment in comment_list">
                 <table class="table table-bordered">
                     <thead>
@@ -28,7 +29,8 @@
                             <a data-toggle="modal"
                                data-target='.newReply{{ comment.id }}' class="btn btn-primary">回复</a>
 
-                            <div class="modal fade bs-example-modal-sm newReply{{ comment.id }}" tabindex="-1" role="dialog"
+                            <div class="modal fade bs-example-modal-sm newReply{{ comment.id }}" tabindex="-1"
+                                 role="dialog"
                                  aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-sm">
                                     <div class="modal-content">
@@ -94,7 +96,8 @@
                                                     <div>
                                                         <div style="margin-bottom: 10px;">
                                                             <input type="text" style="width:250px;"
-                                                                   class="form-control flat" id="replys{{ replys.id }}" placeholder="新评论">
+                                                                   class="form-control flat" id="replys{{ replys.id }}"
+                                                                   placeholder="新评论">
                                                             <br/>
                                                             <button type="button"
                                                                     ng-click="commentOptNew(2, comment.id, replys.id)"
