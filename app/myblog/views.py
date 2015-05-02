@@ -18,6 +18,14 @@ import gfm
 # Create your views here.
 
 
+# def not_found(req):
+#     return render_to_response("404.html", status_code=404)
+#
+#
+# def server_error(req):
+#     return render_to_response("500.html", status_code=500)
+
+
 @ensure_csrf_cookie
 def index(req):
     req.session.set_expiry(5)
