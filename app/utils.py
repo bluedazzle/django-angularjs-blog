@@ -124,7 +124,7 @@ def create_verify_code():
     draw.text((7, 0), new_verify, fill=(0, 0, 0), font=font)  # position, content, color, font
     del draw
     # request.session['captcha'] = rand_str.lower()
-    img_name = 'ver' + str(time.time()).split('.')[0] + 'png'
+    img_name = 'ver' + str(time.time()).split('.')[0] + '.png'
     img_path = BASE + '/static/blog/img/verify/' + img_name
     image.save(img_path, 'png')
     return img_name, new_verify
