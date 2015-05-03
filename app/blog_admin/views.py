@@ -21,6 +21,11 @@ import markdown
 import simplejson
 
 def index(req):
+    try:
+        if req.session['user'] != '' or req.session['user'] is not None:
+            return render_to_response("blog_admin.html")
+    except:
+        pass
     return render_to_response("badmin.html")
 
 
@@ -82,6 +87,7 @@ def new_blog(req):
         mblog = Article.objects.get(id=bid)
         mblog.caption = caption
         mblog.sub_caption = sub_caption
+        mblog.content = content
         mblog.publish = pub
         mblog.classification = classifcation
         mblog.save()

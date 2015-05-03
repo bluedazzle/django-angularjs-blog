@@ -211,7 +211,6 @@ adminApp.controller("articleController", function ($scope, $http, $window) {
     $scope.newClassify = '';
     req_url = window.location.href.toString();
     ex_para = req_url.split('/');
-    alert(ex_para[4]);
     $scope.processForm = function () {
         if ($scope.blogData.caption == '') {
             return null;
@@ -220,6 +219,7 @@ adminApp.controller("articleController", function ($scope, $http, $window) {
         for (var itm in $scope.blogData.tags) {
             tags = tags + $scope.blogData.tags[itm].id + ','
         }
+        $scope.blogData.id = ex_para[5];
         $scope.blogData.tags = tags;
         $http({
             method: 'POST',

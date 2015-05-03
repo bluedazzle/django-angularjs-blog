@@ -11,6 +11,7 @@ import time
 import xmltodict
 import copy
 import os
+from pytz import timezone as pytz_zone
 
 BASE = os.path.dirname(os.path.dirname(__file__))
 
@@ -46,13 +47,15 @@ def create_token(count=32):
 
 def string_to_datetime(timestring, timeformat='%Y-%m-%d'):
     dateres = datetime.datetime.strptime(timestring, timeformat)
+    dateres = dateres.astimezone(timezone.get_current_timezone())
     return dateres
 
 def datetime_to_timestamp(datetimet):
+    datetimet = datetimet.astimezone(timezone.get_current_timezone())
     return time.mktime(datetimet.timetuple())
 
 def datetime_to_string(datetimet):
-    time_str = datetimet
+    time_str = datetimet.astimezone(timezone.get_current_timezone())
     return time_str.strftime('%Y-%m-%d %H:%M:%S')
 
 def datetime_to_utc_string(datetimet):

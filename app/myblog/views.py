@@ -28,7 +28,6 @@ import gfm
 
 @ensure_csrf_cookie
 def index(req):
-    req.session.set_expiry(5)
     return render_to_response('index.html')
 
 
