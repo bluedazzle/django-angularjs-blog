@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from app.utils import *
+from app.blog_log.models import AccIP, ReqRecord
 from django.shortcuts import render, render_to_response
 
 
@@ -26,3 +27,19 @@ def login_require(func):
         return res
     return exect
 
+
+
+def api_times(func):
+    def exect(*args, **kw):
+        req = args[0]
+        ip = req.META['REMOTE_ADDR']
+        uri = req.META['PATH_INFO']
+        api_t = AccIP.objects.get_or_create(ip=ip)[0]
+        api_t.total += 1
+        api_t.day_count += 1
+        api_t.save()
+        new_record = ReqRecord(uri=uri, ip=api_t)
+        new_record.save()
+        res = func(*args, **kw)
+        return res
+    return exect

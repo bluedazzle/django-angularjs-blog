@@ -106,12 +106,3 @@ class Knowledge(BaseModel):
 
     def __unicode__(self):
         return self.question
-
-
-class VerifyCode(BaseModel):
-    verify = models.CharField(max_length=10)
-    token = models.CharField(max_length=128)
-    description = wmd_models.MarkDownField()
-
-    def __unicode__(self):
-        return self.verify
