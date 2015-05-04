@@ -4,6 +4,7 @@ import datetime
 from django.db.models.query import QuerySet
 from django.utils import timezone
 from django.db import models
+from django.utils.timezone import utc
 from django.core.paginator import Page
 from PIL import Image, ImageDraw, ImageFont
 import string
@@ -11,23 +12,8 @@ import time
 import xmltodict
 import copy
 import os
-from pytz import timezone as pytz_zone
 
 BASE = os.path.dirname(os.path.dirname(__file__))
-
-
-def isactive(lastactivetime, det=600):
-    try:
-        print lastactivetime
-        nowt = datetime.datetime.utcnow()
-        print nowt
-        detla = nowt - lastactivetime
-        if detla > datetime.timedelta(seconds=det):
-            return False
-        else:
-            return True
-    except Exception, e:
-        except_handle(e)
 
 
 def encodejson(status, body):
@@ -38,6 +24,8 @@ def encodejson(status, body):
 
 
 def create_random_str(count=4):
+    if count > 62:
+        return 'too long str'
     return string.join(random.sample('ZYXWVUTSRQPONMLKJIHGFEDCBA1234567890zyxwvutsrqponmlkjihgfedcba', count)).replace(" ", "")
 
 
@@ -45,16 +33,23 @@ def create_token(count=32):
     return string.join(random.sample('ZYXWVUTSRQPONMLKJIHGFEDCBA1234567890zyxwvutsrqponmlkjihgfedcba+=', count)).replace(" ", "")
 
 
-def string_to_datetime(timestring, timeformat='%Y-%m-%d'):
+def string_to_datetime(timestring, timeformat='%Y-%m-%d %H:%M:%S', usetz=True):
     dateres = datetime.datetime.strptime(timestring, timeformat)
-    dateres = dateres.astimezone(timezone.get_current_timezone())
+    if usetz:
+        tz = timezone.get_current_timezone()
+        dateres = tz.localize(dateres)
+        dateres = dateres.astimezone(tz)
     return dateres
 
 def datetime_to_timestamp(datetimet):
+    if datetimet.tzinfo is None:
+        return time.mktime(datetimet.timetuple())
     datetimet = datetimet.astimezone(timezone.get_current_timezone())
     return time.mktime(datetimet.timetuple())
 
 def datetime_to_string(datetimet):
+    if datetimet.tzinfo is None:
+        return time_str.strftime('%Y-%m-%d %H:%M:%S')
     time_str = datetimet.astimezone(timezone.get_current_timezone())
     return time_str.strftime('%Y-%m-%d %H:%M:%S')
 

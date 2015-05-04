@@ -65,7 +65,6 @@ def know(req):
 
 def get_classify(req, cid=None):
     body={}
-    print cid
     blog_list = Article.objects.filter(publish=True, classification__id=cid).order_by('-create_time')
     total = blog_list.count()
     total_page = math.ceil(float(total) / 4.0)
@@ -73,7 +72,6 @@ def get_classify(req, cid=None):
     page_num = 1
     try:
         page_num = int(req.GET.get('page'))
-        print page_num
         blog_list = paginator.page(page_num)
     except PageNotAnInteger:
         blog_list = paginator.page(1)
@@ -105,6 +103,9 @@ def get_classify(req, cid=None):
     else:
         prep = page_num - 1
         nextp = page_num + 1
+    if page_num > total_page:
+        prep = total_page
+        nextp = 0
     pagination = {'page': page_num,
                   'total_page': total_page,
                   'total': total,
@@ -157,6 +158,9 @@ def get_tag(req, tid=None):
     else:
         prep = page_num - 1
         nextp = page_num + 1
+    if page_num > total_page:
+        prep = total_page
+        nextp = 0
     pagination = {'page': page_num,
                   'total_page': total_page,
                   'total': total,
@@ -422,6 +426,7 @@ def get_tools(req):
 @csrf_exempt
 def submit_comment(req, bid=None):
     body={}
+    print bid
     if bid is None:
         body['fail_mes'] = 'id 不合法'
         return HttpResponse(encodejson(7, body), content_type='application/json')
