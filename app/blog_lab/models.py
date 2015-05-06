@@ -37,3 +37,12 @@ class Proxy(BaseModel):
 
     def __unicode__(self):
         return self.ip
+
+
+class ProxyUser(BaseModel):
+    token = models.CharField(max_length=64)
+    ip = models.CharField(max_length=20)
+    record = models.CharField(max_length=1000, default='')
+
+    def __unicode__(self):
+        return self.token

@@ -126,7 +126,6 @@ def get_tag(req, tid=None):
     page_num = 1
     try:
         page_num = int(req.GET.get('page'))
-        print page_num
         blog_list = paginator.page(page_num)
     except PageNotAnInteger:
         blog_list = paginator.page(1)
@@ -240,7 +239,6 @@ def get_know(req, text=None):
     page_num = 1
     try:
         page_num = int(req.GET.get('page'))
-        print page_num
         know_list = paginator.page(page_num)
     except PageNotAnInteger:
         know_list = paginator.page(1)
@@ -362,7 +360,6 @@ def get_blog(req):
     page_num = 1
     try:
         page_num = int(req.GET.get('page'))
-        print page_num
         blog_list = paginator.page(page_num)
     except PageNotAnInteger:
         blog_list = paginator.page(1)
