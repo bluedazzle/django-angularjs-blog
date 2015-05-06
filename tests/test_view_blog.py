@@ -178,7 +178,7 @@ class TestGetArticleByTag(TestCase):
         self.assertEqual(pagination['page'], 1)
 
 
-class TestSeartchKnow(TestCase):
+class TestSearchKnow(TestCase):
     def setUp(self):
         Knowledge.objects.create(question='test',
                                  answer='answer',
