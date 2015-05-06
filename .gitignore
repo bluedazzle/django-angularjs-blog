@@ -6,4 +6,3 @@
 .DS_Store
 NewRaPo/settings/produce.py
 ver*.png
-cron_task.py
