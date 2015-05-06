@@ -107,3 +107,18 @@ code {
 	cursor: default;
 	color:rgb(203, 203, 198);
 }
+
+.tips {
+	border-radius: 10px;
+	min-height: 150px;
+}
+
+.tipContent {
+	margin-top: 20px;
+	padding-right: 10px;
+}
+
+.powered {
+	background-size: 100% 100%;
+	height: 50px;
+}

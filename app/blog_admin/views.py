@@ -315,8 +315,8 @@ def comment_opt_new(req):
     cid = req.POST.get("cid")
     to = req.POST.get('to')
     content = req.POST.get('content')
-    print '----'
-    print content
+    # print '----'
+    # print content
     new_reply = CommentReply(content=content,
                              author="RaPoSpectre",
                              avatar="master.png")

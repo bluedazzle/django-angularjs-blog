@@ -1,12 +1,72 @@
 {% extends "base.html" %}
 {% block title %}RaPo实验室｜Django&Python{% endblock %}
 {% block content %}
-    <div class="myContianer">
+    {% verbatim %}
+    <div class="myContianer" ng-controller="labController">
         <div class="article">
             <h1>实验室
                 <small>这里是用来玩各种黑科技的地方</small>
             </h1>
         </div>
-        <div class="article" style="height: 1000px;"></div>
+        <div class="article">
+            <div class="text-center">
+                <h1>不稳定IP代理</h1>
+            </div>
+            <div class="art-tag"></div>
+            <div>
+                <h4>是的，你没看错，不稳定IP代理。因为代理都是本站背后的爬虫从世界各个角落爬的，所以肯定保证不了稳定性咯～不过每一个出现在这里的代理都是经过本站爬虫验证可用滴
+                    ，只是时效性未知，可能你请求滴时候已经过期啦～</h4>
+                <br/>
+                <h4>本试验性功能每个整点更新一次代理，每个半点检查一次代理，基本可以保证没有不可用滴IP。</h4>
+                <br/>
+                <h4>做这个滴原因呢？一个是想提高服务器的资源使用，平时闲着也是闲着。另一个就当然是提供方便的代理IP获取途径啦</h4>
+                <br/>
+                <h4>现阶段能提供的IP还比较少，大概每小时100个左右，完全免费，提供API，详情点进去看啦～</h4>
+            </div>
+            <br/>
+            <br/>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <a class="thumbnail text-center tips">
+                        <h4>用户数量：</h4>
+
+                        <h2 class="tipContent">{{ total_user }}人</h2>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a class="thumbnail text-center tips">
+                        <h4>今日请求：</h4>
+
+                        <h2 class="tipContent">{{ req_times }}次</h2>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a class="thumbnail text-center tips">
+                        <h4>可用代理：</h4>
+                        <h2 class="tipContent">{{ proxy_num }}个</h2>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a class="thumbnail text-center tips">
+                        <h4>更新时间：</h4>
+
+                        <div class="tipContent">
+                            <span>{{ update_time }}</span>
+                            <br/>
+                            <span>{{ update_time }}</span>
+                        </div>
+
+
+                    </a>
+                </div>
+            </div>
+            <br/>
+
+            <div class="text-right" style="margin-bottom: 20px;">
+                <a href="/lab/proxy/">试一试》</a>
+            </div>
+        </div>
     </div>
+    {% endverbatim %}
 {% endblock %}

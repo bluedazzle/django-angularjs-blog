@@ -208,3 +208,36 @@ class TestSearchKnow(TestCase):
         self.assertEqual(pagination['pre'], 1)
         self.assertEqual(pagination['next'], 0)
         self.assertEqual(pagination['page'], 2)
+<<<<<<< HEAD
+=======
+
+
+class TestDetail(TestCase):
+    def setUp(self):
+        self.classify = Classification.objects.create(c_name='test')
+        self.tag = Tag.objects.create(tag_name='test')
+        self.art = Article.objects.create(caption='article',
+                           sub_caption='sub_article',
+                           classification=self.classify,
+                           content='article test',
+                           publish=True)
+        art.tags.add(self.tag)
+        art.save()
+
+    def test_deatil(self):
+        resp = self.client.get(reverse('detail_json_id', kwargs={'bid': self.art.id}))
+        self.assertEqual(resp.status_code, 200)
+        res_json = json.loads(resp.content)
+        self.assertEqual(res_json['status'], 1)
+
+    def test_pagnination(self):
+        resp = self.client.get(reverse('detail_json_id', kwargs={'bid': self.art.id}))
+        self.assertEqual(resp.status_code, 200)
+        res_json = json.loads(resp.content)
+        pagination = res_json['body']['pagination']
+        self.assertEqual(pagination['pre_id'], self.art.id)
+        self.assertEqual(pagination['next_id'], self.art.id)
+        self.assertEqual(pagination['pre'], 1)
+        self.assertEqual(pagination['next'], 0)
+        self.assertEqual(pagination['page'], 2)
+>>>>>>> 2eedeae312caff6c834e3ffc2423d11b5bd3ea3c

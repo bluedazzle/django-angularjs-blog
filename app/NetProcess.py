@@ -44,8 +44,8 @@ class NetProcess(object):
             # print res.headers
             return res.content
         except Exception, e:
-            print e.message
-            print e
+            # print e.message
+            # print e
             return e
         finally:
             pass

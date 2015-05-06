@@ -201,6 +201,41 @@ blogApp.controller("commentController", function ($scope, $http, $window) {
     };
 });
 
+//lab
+blogApp.controller("labController", function ($scope, $http) {
+     var url = HOST + "/lab/get_proxy_info";
+    $http.get(url).success(function (response) {
+        //toolApp.$scope.req_http();
+        $scope.total_user = response.body.total_user;
+        $scope.req_times = response.body.req_times;
+        $scope.proxy_num = response.body.proxy_num;
+        $scope.update_time = response.body.update_time;
+    });
+});
+
+//lab_proxy
+blogApp.controller("labProxyController", function ($scope, $http) {
+    $scope.proxyData = {'private_token': 'w+GbPOV9AqBM07fKvtFEJDou1xgkSiLn', 'reset': true};
+    $scope.token = '';
+    $scope.processToken = function () {
+        var url = HOST + "/lab/create_token";
+        $http.get(url).success(function (response) {
+            $scope.token = response.body.private_token;
+        });
+    };
+    $http({
+            method: 'POST',
+            url: HOST + "/lab/get_proxy",
+            data: $.param($scope.proxyData),  // pass in data as strings
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
+        })
+            .success(function (data) {
+                if (data.status == 1) {
+                    $scope.proxy_list = data.body.proxy_list
+                }
+            });
+});
+
 
 //admin
 var adminApp = angular.module("adminApp", []);

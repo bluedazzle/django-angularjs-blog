@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}RaPo博客｜Django&Python{% endblock %}
+{% block content %}
+    {% verbatim %}
+    <div class="myContianer" ng-controller="labProxyController">
+        <div class="article">
+            <h1>部分代理</h1>
+
+            <div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>IP</th>
+                        <th>获取时间</th>
+                        <th>更新时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="proxy in proxy_list">
+                        <th scope="row">{{ proxy.id }}</th>
+                        <td>{{ proxy.ip }}</td>
+                        <td>{{ proxy.create_time }}</td>
+                        <td>{{ proxy.modify_time }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h1>API文档</h1>
+                <h4>HOST: http://www.rapospectre.com</h4>
+                <div>
+                    <h2>步骤一：</h2>
+                    <h4>获取token：
+                        <small>（你以为是我要强行装X才设置需要token访问的？其实是我懒得做统计哪个用户请求到了多少IP＃——＃）</small>
+                    </h4>
+                    <br/>
+
+                    <div class="row">
+                        <h4 class="col-md-4">你可以在这里直接申请：</h4>
+                        <div class="input-group col-md-8" style="padding-top: 10px;">
+                            <input type="text" ng-model="token" class="form-control" placeholder="在这获取token">
+      <span class="input-group-btn">
+        <button class="btn btn-default" ng-click="processToken()" type="button">获取</button>
+      </span>
+                        </div>
+                    </div>
+                    <h4>也可以用api获取：</h4>
+                    <br/>
+                    <h2>获取Token</h2>
+                    <code>GET: /lab/create_token</code>
+                    <h4>Request</h4>
+                    <h5>无</h5>
+                    <h4>Return</h4>
+                    <code>{
+    "status": 1,
+    "body": {
+        "private_token": "w+GbPOV9AqBM07fKvtFEJDou1xgkSiLn"
+    }
+}</code>
+                </div>
+                <br/>
+                <br/>
+                <div>
+                    <h2>步骤二：</h2>
+                    <h2>获取代理</h2>
+                    <code>POST: /lab/get_proxy</code>
+                    <h4>Request</h4>
+                    <h5 style="margin-left: 10px;">private_token(<em>Required|string</em>)-token信息</h5>
+                    <h5 style="margin-left: 10px;">reset(<em>Optional|bool</em>)-是否重置</h5>
+                    <h4>Return</h4>
+                    <code>{
+    "status": 1,
+    "body": {
+        "proxy_list": [
+            {
+                "ip": "111.1.36.163:80",
+                "create_time": "2015-05-05 21:29:30",
+                "id": 23,
+                "modify_time": "2015-05-05 21:29:30"
+            },
+            {
+                "ip": "113.253.44.78:80",
+                "create_time": "2015-05-05 21:30:57",
+                "id": 34,
+                "modify_time": "2015-05-05 21:30:57"
+            },
+            {
+                "ip": "113.253.44.78:80",
+                "create_time": "2015-05-05 21:30:57",
+                "id": 34,
+                "modify_time": "2015-05-05 21:30:57"
+            },
+            {
+                "ip": "221.10.102.203:82",
+                "create_time": "2015-05-05 21:28:37",
+                "id": 8,
+                "modify_time": "2015-05-05 21:28:37"
+            },
+            {
+                "ip": "114.112.91.97:90",
+                "create_time": "2015-05-05 21:29:24",
+                "id": 18,
+                "modify_time": "2015-05-05 21:29:24"
+            }
+        ]
+    }
+}</code>
+                </div>
+                <div>
+                    <h2>状态码说明</h2>
+                    <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>状态码</th>
+                        <th>说明</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr >
+                        <td>1</td>
+                        <td>成功</td>
+                    </tr>
+                    <tr >
+                        <td>6</td>
+                        <td>验证失败</td>
+                    </tr>
+                    <tr >
+                        <td>7</td>
+                        <td>参数缺失</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endverbatim %}
+
+{% endblock %}
