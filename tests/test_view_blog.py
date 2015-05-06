@@ -44,10 +44,10 @@ class TestSubmitComment(TestCase):
     def setUp(self):
         classify = Classification.objects.create(c_name='test')
         self.art = Article.objects.create(caption='article',
-                               sub_caption='sub_article',
-                               classification=classify,
-                               content='article test',
-                               publish=True)
+                                          sub_caption='sub_article',
+                                          classification=classify,
+                                          content='article test',
+                                          publish=True)
         settings.SESSION_ENGINE = 'django.contrib.sessions.backends.file'
         engine = import_module(settings.SESSION_ENGINE)
         store = engine.SessionStore()
@@ -59,15 +59,15 @@ class TestSubmitComment(TestCase):
         self.session['verify'] = '1234'
         self.session.save()
         resp = self.client.post(reverse('submit_comment', kwargs={'bid': self.art.id}), {'verify': '1234',
-                                                                                'content': 'test',
-                                                                                'nick': 'test'})
+                                                                                         'content': 'test',
+                                                                                         'nick': 'test'})
         res_json = json.loads(resp.content)
         self.assertEqual(res_json['status'], 1)
 
     def test_verify(self):
         resp = self.client.post(reverse('submit_comment', kwargs={'bid': self.art.id}), {'verify': '1234',
-                                                                                'content': 'test',
-                                                                                'nick': 'test'})
+                                                                                         'content': 'test',
+                                                                                         'nick': 'test'})
         res_json = json.loads(resp.content)
         self.assertEqual(res_json['status'], 12)
 
@@ -75,8 +75,8 @@ class TestSubmitComment(TestCase):
         self.session['verify'] = '1234'
         self.session.save()
         resp = self.client.post(reverse('submit_comment', kwargs={'bid': 100}), {'verify': '1234',
-                                                                                'content': 'test',
-                                                                                'nick': 'test'})
+                                                                                 'content': 'test',
+                                                                                 'nick': 'test'})
         res_json = json.loads(resp.content)
         self.assertEqual(res_json['status'], 7)
 
@@ -147,10 +147,10 @@ class TestGetArticleByTag(TestCase):
         self.classify = Classification.objects.create(c_name='test')
         self.tag = Tag.objects.create(tag_name='test')
         art = Article.objects.create(caption='article',
-                           sub_caption='sub_article',
-                           classification=self.classify,
-                           content='article test',
-                           publish=True)
+                                     sub_caption='sub_article',
+                                     classification=self.classify,
+                                     content='article test',
+                                     publish=True)
         art.tags.add(self.tag)
         art.save()
 
@@ -208,8 +208,6 @@ class TestSearchKnow(TestCase):
         self.assertEqual(pagination['pre'], 1)
         self.assertEqual(pagination['next'], 0)
         self.assertEqual(pagination['page'], 2)
-<<<<<<< HEAD
-=======
 
 
 class TestDetail(TestCase):
@@ -217,12 +215,12 @@ class TestDetail(TestCase):
         self.classify = Classification.objects.create(c_name='test')
         self.tag = Tag.objects.create(tag_name='test')
         self.art = Article.objects.create(caption='article',
-                           sub_caption='sub_article',
-                           classification=self.classify,
-                           content='article test',
-                           publish=True)
-        art.tags.add(self.tag)
-        art.save()
+                                          sub_caption='sub_article',
+                                          classification=self.classify,
+                                          content='article test',
+                                          publish=True)
+        self.art.tags.add(self.tag)
+        self.art.save()
 
     def test_deatil(self):
         resp = self.client.get(reverse('detail_json_id', kwargs={'bid': self.art.id}))
@@ -237,7 +235,58 @@ class TestDetail(TestCase):
         pagination = res_json['body']['pagination']
         self.assertEqual(pagination['pre_id'], self.art.id)
         self.assertEqual(pagination['next_id'], self.art.id)
-        self.assertEqual(pagination['pre'], 1)
+        self.assertEqual(pagination['pre_title'], '')
+        self.assertEqual(pagination['next_title'], '')
+
+
+class TestGetBlog(TestCase):
+    def setUp(self):
+        self.classify = Classification.objects.create(c_name='test')
+        self.tag = Tag.objects.create(tag_name='test')
+        self.art = Article.objects.create(caption='article',
+                                          sub_caption='sub_article',
+                                          classification=self.classify,
+                                          content='article test',
+                                          publish=True)
+        self.art.tags.add(self.tag)
+        self.art.save()
+
+    def test_get_blog(self):
+        resp = self.client.get(reverse('blog_json'))
+        self.assertEqual(resp.status_code, 200)
+        res_json = json.loads(resp.content)
+        self.assertEqual(res_json['status'], 1)
+
+    def test_pagnination(self):
+        resp = self.client.get(reverse('blog_json'))
+        self.assertEqual(resp.status_code, 200)
+        res_json = json.loads(resp.content)
+        pagination = res_json['body']['pagination']
+        self.assertEqual(pagination['page'], 1)
+        self.assertEqual(pagination['total_page'], 1)
+        self.assertEqual(pagination['total'], 1)
+        self.assertEqual(pagination['pre'], 0)
         self.assertEqual(pagination['next'], 0)
-        self.assertEqual(pagination['page'], 2)
->>>>>>> 2eedeae312caff6c834e3ffc2423d11b5bd3ea3c
+
+
+class TestGetTools(TestCase):
+    def setUp(self):
+        self.classify = Classification.objects.create(c_name='test')
+        self.tag = Tag.objects.create(tag_name='test')
+        self.art = Article.objects.create(caption='article',
+                                          sub_caption='sub_article',
+                                          classification=self.classify,
+                                          content='article test',
+                                          publish=True)
+        self.art.tags.add(self.tag)
+        self.art.save()
+
+    def test_get_tools(self):
+        resp = self.client.get(reverse('tools_json'))
+        self.assertEqual(resp.status_code, 200)
+        res_json = json.loads(resp.content)
+        res = res_json['body']
+        self.assertEqual(res_json['status'], 1)
+        self.assertEqual(res['latest_list'][0]['caption'], 'article')
+        self.assertEqual(res['classify_list'][0]['c_name'], 'test')
+        self.assertEqual(res['read_list'][0]['caption'], 'article')
