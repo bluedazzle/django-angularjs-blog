@@ -6,6 +6,7 @@ from app.decorater import api_times
 import random
 import copy
 
+@api_times
 def create_permission(req):
     body={}
     ip = req.META['REMOTE_ADDR']

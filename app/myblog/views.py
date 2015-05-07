@@ -11,6 +11,7 @@ from django.core.paginator import Paginator
 from django.core.paginator import PageNotAnInteger
 from django.core.paginator import EmptyPage
 from app.myblog.models import *
+from app.decorater import api_times
 from misaka import Markdown, HtmlRenderer
 import math
 import markdown
@@ -62,7 +63,7 @@ def about(req):
 def know(req):
     return render_to_response('knowledge.html')
 
-
+@api_times
 def get_classify(req, cid=None):
     body={}
     blog_list = Article.objects.filter(publish=True, classification__id=cid).order_by('-create_time')
@@ -117,6 +118,7 @@ def get_classify(req, cid=None):
     return HttpResponse(encodejson(1, body), content_type="application/json")
 
 
+@api_times
 def get_tag(req, tid=None):
     body={}
     blog_list = Article.objects.filter(publish=True, tags__id=tid).order_by('-create_time')
@@ -171,6 +173,7 @@ def get_tag(req, tid=None):
     return HttpResponse(encodejson(1, body), content_type="application/json")
 
 
+@api_times
 def searche_know(req, text):
     body={}
 
@@ -224,6 +227,7 @@ def searche_know(req, text):
     return HttpResponse(encodejson(1, body), content_type='application/json')
 
 
+@api_times
 def get_know(req, text=None):
     body={}
     if text is not None:
@@ -284,7 +288,7 @@ def get_know(req, text=None):
     return HttpResponse(encodejson(1, body), content_type='application/json')
 
 
-
+@api_times
 def detail(req, bid):
     body={}
     blog_list = Article.objects.filter(id=bid, publish=True)
@@ -351,6 +355,7 @@ def detail(req, bid):
     return HttpResponse(encodejson(1, body), content_type='application/json')
 
 
+@api_times
 def get_blog(req):
     body={}
     blog_list = Article.objects.filter(publish=True).order_by('-create_time')
@@ -402,6 +407,7 @@ def get_blog(req):
     return HttpResponse(encodejson(1, body), content_type="application/json")
 
 
+@api_times
 def get_tools(req):
     body={}
     latest_list = Article.objects.filter(publish=True).order_by('-create_time')
@@ -456,6 +462,7 @@ def refresh_verify(req):
     return HttpResponse(encodejson(1, body), content_type="application/json")
 
 
+@api_times
 def get_index(req):
     body={}
     blog_list = Article.objects.filter(publish=True).order_by('-create_time')

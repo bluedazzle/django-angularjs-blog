@@ -1,5 +1,6 @@
 <html lang="zh-CN">
 <head>
+{% block style %}
     <meta charset="utf-8">
     <meta name="keywords" content="个人博客,rapospectre,个人博客模板,rapo,个人网站模版,django,python,网站建设">
     <meta name="description" content="rapospectre的个人网站，web知识与探索，django与python技术资料，网页模版下载，个人网站建设"/>
@@ -13,6 +14,7 @@
     <link href="/css/my-ui.css" rel="stylesheet">
     <link href="/css/prism.css" rel="stylesheet">
     <script src="http://apps.bdimg.com/libs/angular.js/1.2.5/angular.min.js"></script>
+{% endblock %}
     <title>{% block title %}{{ blogtitle }}{% endblock %}</title>
 </head>
 <body ng-cloak class="ng-cloak" style="background:#34495E;" ng-app="blogApp">
@@ -166,6 +168,7 @@
         </div>
         <span class="navbar-text navbar-right" style="margin-right: 30px;">Designed by <b><i>RaPoSpectre</i></b> | Copyright 2014-2015 蜀ICP备14027983号-3</span>
     </footer>
+{% block js %}
     <script src="/js/blogapp.js"></script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="/js/flat-ui.min.js"></script>
@@ -200,5 +203,6 @@
         "selectShare": {"bdContainerClass": null, "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]}
     };
     with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+{% endblock %}
 </body>
 </html>

@@ -10,6 +10,10 @@ def proxy(req):
     return render_to_response("proxy.html")
 
 
+def monitor(req):
+    return render_to_response("monitor.html")
+
+
 def get_proxy_info(req):
     body={}
     total_use = ProxyUser.objects.all().count()
