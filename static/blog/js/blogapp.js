@@ -237,6 +237,10 @@ blogApp.controller("labProxyController", function ($scope, $http) {
 });
 
 
+//lab_monitor
+
+
+
 //admin
 var adminApp = angular.module("adminApp", []);
 adminApp.controller("articleController", function ($scope, $http, $window) {

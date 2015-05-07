@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block title %}RaPo博客｜Django&Python{% endblock %}
+{% block style %}
+    {{ block.super }}
+{% endblock %}
 {% block content %}
     {% verbatim %}
-    <div class="myContianer" ng-controller="labProxyController">
+    <div class="myContianer" ng-controller="labChartController">
         <div class="article">
             <div class="myContianer">
                 <canvas id="canvas" height="100"></canvas>
@@ -15,48 +18,32 @@
     {{ block.super }}
     <script src="/js/chartjs/Chart.js"></script>
     <script>
-        var randomScalingFactor = function () {
-            return Math.round(Math.random() * 100)
-        };
-        var randomColorFactor = function () {
-            return Math.round(Math.random() * 255)
-        };
+        blogApp.controller("labChartController", function ($scope, $http) {
+            var url = HOST + '/lab/get_chart_info';
+            $http.get(url).success(function (response) {
+                $scope.req_list = response.body.req_rec;
+                $scope.req_count = response.body.req_count;
+                $scope.ip_list = response.body.ip_rec;
+                $scope.ip_count = response.body.ip_count;
+                var barChartData = {
+                    labels: $scope.read_list,
+                    datasets: [
+                        {
+                            fillColor: "rgba(220,220,220,0.5)",
+                            strokeColor: "rgba(220,220,220,0.8)",
+                            highlightFill: "rgba(220,220,220,0.75)",
+                            highlightStroke: "rgba(220,220,220,1)",
+                            data: $scope.req_count
+                        }
+                    ]
 
-        var barChartData = {
-            labels: ["January", "February", "March"],
-            datasets: [
-                {
-                    fillColor: "rgba(220,220,220,0.5)",
-                    strokeColor: "rgba(220,220,220,0.8)",
-                    highlightFill: "rgba(220,220,220,0.75)",
-                    highlightStroke: "rgba(220,220,220,1)",
-                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-                },
-                {
-                    fillColor: "rgba(151,187,205,0.5)",
-                    strokeColor: "rgba(151,187,205,0.8)",
-                    highlightFill: "rgba(151,187,205,0.75)",
-                    highlightStroke: "rgba(151,187,205,1)",
-                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-                }
-            ]
-
-        }
-        window.onload = function () {
-            var ctx = document.getElementById("canvas").getContext("2d");
-            window.myBar = new Chart(ctx).Bar(barChartData, {
-                responsive: true
+                };
+                var ctx = $('#canvas').get(0).getContext("2d");
+                new Chart(ctx).Bar(barChartData, {responsive: false,
+                                  scaleShowGridLines : true});
+                return 0;
             });
-        }
-
-        $('#randomizeData').click(function () {
-            barChartData.datasets[0].fillColor = 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',.7)';
-            barChartData.datasets[0].data = [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()];
-
-            barChartData.datasets[1].fillColor = 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',.7)';
-            barChartData.datasets[1].data = [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()];
-
-            window.myBar.update();
+            return 0;
         });
     </script>
 {% endblock %}

@@ -5,8 +5,8 @@ from app.blog_lab.views import *
 
 
 urlpatterns = patterns('',
-    url(r'^create_token$', create_permission),
-    url(r'^get_proxy$', get_ip),
+    url(r'^create_token/$', create_permission),
+    url(r'^get_proxy/$', get_ip),
     url(r'^proxy/$', proxy),
     url(r'^monitor/$', monitor),
     url(r'^get_proxy_info/$', get_proxy_info),
