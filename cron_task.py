@@ -1,11 +1,16 @@
+"""
+WSGI config for NewRaPo project.
+
+It exposes the WSGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/
+"""
+
 import os
 import uwsgi
 from app.blog_lab.proxy.method import get_proxy, check_proxy
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "NewRaPo.settings.produce")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "NewRaPo.settings.dev")
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()

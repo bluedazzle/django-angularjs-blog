@@ -203,13 +203,16 @@ blogApp.controller("commentController", function ($scope, $http, $window) {
 
 //lab
 blogApp.controller("labController", function ($scope, $http) {
-     var url = HOST + "/lab/get_proxy_info";
+     var url = HOST + "/lab/get_lab_info";
+    $scope.api_status = false;
     $http.get(url).success(function (response) {
         //toolApp.$scope.req_http();
         $scope.total_user = response.body.total_user;
         $scope.req_times = response.body.req_times;
         $scope.proxy_num = response.body.proxy_num;
         $scope.update_time = response.body.update_time;
+        $scope.api_control = response.body.api_control;
+        $scope.api_status = response.body.api_status;
     });
 });
 

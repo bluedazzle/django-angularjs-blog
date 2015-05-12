@@ -22,6 +22,6 @@ class TestNetProcess(TestCase):
     def test_net_post(self):
         postdict = {'private_token': 'rapospectre'}
         res = self.net.GetResFromRequest('POST', 'http://www.rapospectre.com/lab/get_proxy', postDic=postdict)
-        self.assertEqual(res, str)
+        self.assertIsInstance(res, str)
         res_json = json.loads(res)
         self.assertEqual(res_json['status'], 1)

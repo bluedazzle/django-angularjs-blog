@@ -4,7 +4,7 @@ from app.blog_admin import views
 urlpatterns = patterns('',
     url(r'^$', views.index, name='admin_index'),
     url(r'^blog_admin/$', views.blog, name='admin_blog'),
-    url(r'^know_admin$/', views.know_admin, name='admin_know'),
+    url(r'^know_admin/$', views.know_admin, name='admin_know'),
     url(r'^create_know/$', views.know, name='admin_new_know'),
     url(r'^create_blog/$', views.create_blog, name='admin_new_blog'),
     url(r'^create_know/(?P<kid>(\d)+)/$', views.know, name='admin_modify_know'),

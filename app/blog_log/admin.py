@@ -4,3 +4,4 @@ from app.blog_log.models import *
 
 admin.site.register(AccIP)
 admin.site.register(ReqRecord)
+admin.site.register(BackLog)

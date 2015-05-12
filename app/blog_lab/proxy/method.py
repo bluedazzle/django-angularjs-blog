@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from app.blog_lab.models import Proxy
 from app.blog_lab.proxy.Proxy import *
+from app.decorater import back_log
+from app.decorater import BACK_CHECK_PROXY, BACK_GET_PROXY
 
+@back_log(BACK_GET_PROXY)
 def get_proxy(args = None):
     a = NetProcess()
     a.Host = 'www.hao123.com'
@@ -27,9 +30,9 @@ def get_proxy(args = None):
             errmsg = str(e)
             continue
     content = '新增代理IP成功，新增数量' + str(newitems) + '条'
-    print content
+    return content
 
-
+@back_log(BACK_CHECK_PROXY)
 def check_proxy(args = None):
     a = NetProcess()
     useless = 0
@@ -44,4 +47,4 @@ def check_proxy(args = None):
             # print res
             print item.ip + ' connect success'
     content = '代理检验完成，删除无效代理' + str(useless) + '个'
-    print content
+    return content

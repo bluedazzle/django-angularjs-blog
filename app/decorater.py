@@ -1,8 +1,11 @@
 from django.http import HttpResponse
 from app.utils import *
-from app.blog_log.models import AccIP, ReqRecord
+from app.blog_log.models import AccIP, ReqRecord, BackLog
 from django.shortcuts import render, render_to_response
 
+
+BACK_GET_PROXY = 1
+BACK_CHECK_PROXY = 2
 
 def login_api(func):
     def exect(*args, **kw):
@@ -43,3 +46,21 @@ def api_times(func):
         res = func(*args, **kw)
         return res
     return exect
+
+
+
+def back_log(ltype):
+    def back_type(func):
+        def exect(*args, **kw):
+            if ltype == 1:
+                new_back = BackLog(log_type=1)
+            if ltype == 2:
+                new_back = BackLog(log_type=2)
+            else:
+                new_back = BackLog(log_type=2)
+            res = func(*args, **kw)
+            new_back.content = res
+            new_back.save()
+            return res
+        return exect
+    return back_type

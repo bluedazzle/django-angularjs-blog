@@ -9,6 +9,6 @@ urlpatterns = patterns('',
     url(r'^get_proxy/$', get_ip),
     url(r'^proxy/$', proxy),
     url(r'^monitor/$', monitor),
-    url(r'^get_proxy_info/$', get_proxy_info),
+    url(r'^get_lab_info/$', get_lab_info),
     url(r'^get_chart_info/$', get_chart_message),
     )

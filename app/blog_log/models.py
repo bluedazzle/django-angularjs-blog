@@ -50,3 +50,13 @@ class ReqRecord(BaseModel):
 
     def __unicode__(self):
         return self.uri
+
+
+class BackLog(BaseModel):
+    content = models.CharField(max_length=50)
+    log_type = models.IntegerField()
+    status = models.BooleanField(default=True)
+    fail_message = models.CharField(max_length=100, default='')
+
+    def __unicode__(self):
+        return self.content

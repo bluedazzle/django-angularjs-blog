@@ -2,8 +2,8 @@ from django.test import TestCase
 from mock import Mock
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
-from app.decorater import login_api, login_require, api_times
-from app.blog_log.models import AccIP, ReqRecord
+from app.decorater import login_api, login_require, api_times, back_log
+from app.blog_log.models import AccIP, ReqRecord, BackLog
 
 import json
 
@@ -65,3 +65,18 @@ class TestApiTimes(TestCase):
         ip = AccIP.objects.get(ip=self.request.META['REMOTE_ADDR'])
         rr = ReqRecord.objects.get(ip=ip)
         self.assertEqual(rr.uri, '/blog_admin/know_opt')
+
+
+class TestBackLog(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.request = self.factory.get('/blog_admin/know_opt')
+
+    def test_back_log(self):
+        mock = Mock(return_value='success')
+        func_p = back_log(1)
+        func = func_p(mock)
+        resp = func(self.request)
+        self.assertEqual(resp, 'success')
+        back = BackLog.objects.get(content='success')
+        self.assertEqual(back.content, 'success')
