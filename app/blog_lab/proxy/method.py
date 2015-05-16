@@ -51,6 +51,8 @@ def check_proxy(args = None):
         if not itm:
             oters[i].delete()
             useless += 1
+        else:
+            oters[i].save()
     content = '代理检验完成，删除无效代理' + str(useless) + '个'
     print content
     return content

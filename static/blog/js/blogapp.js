@@ -1,5 +1,5 @@
 //blog angular
-var HOST = 'http://localhost:8000';
+var HOST = 'http://www.rapospectre.com';
 
 function getCookie(name) {
     var cookieValue = null;
@@ -25,7 +25,7 @@ blogApp.filter('trustHtml', function ($sce) {
 
 //index
 blogApp.controller("indexController", function ($scope, $http, $window) {
-    var url = HOST + '/index_content';
+    var url = HOST + '/index_content/';
     $http.get(url).success(function (response) {
         $scope.blog = response.body.blog;
         $scope.pagination = response.body.pagination;
@@ -43,7 +43,7 @@ blogApp.controller("blogController", function ($scope, $http, $window) {
         } else if (url_para[3] == 'tag') {
             url = HOST + "/get_tag/" + url_para[4] + "/";
         } else {
-            url = HOST + "/bd";
+            url = HOST + "/bd/";
         }
         return url;
     };
@@ -67,7 +67,7 @@ blogApp.controller("blogController", function ($scope, $http, $window) {
 
 //base tools
 blogApp.controller("toolController", function ($scope, $http) {
-    url = HOST + "/tools";
+    url = HOST + "/tools/";
     $http.get(url).success(function (res) {
         $scope.latest_list = res.body.latest_list;
         $scope.classifies = res.body.classify_list;
@@ -112,7 +112,7 @@ blogApp.controller("blogDetailController", function ($scope, $http) {
         $scope.verifyp = response.body.verify;
     });
     $scope.refresh_req = function (url) {
-        url = HOST + "/refresh_verify";
+        url = HOST + "/refresh_verify/";
         $http.get(url).success(function (response) {
             $scope.verifyp = response.body.verify;
         });
@@ -140,7 +140,7 @@ blogApp.controller("knowController", function ($scope, $http) {
     };
     $scope.search_http = function () {
         if ($scope.search_text == '') {
-            url = HOST + '/get_knowledge';
+            url = HOST + '/get_knowledge/';
         } else {
             url = HOST + '/get_knowledge/' + $scope.search_text + '/';
 
@@ -150,7 +150,7 @@ blogApp.controller("knowController", function ($scope, $http) {
             $scope.pagination = response.body.pagination;
         });
     };
-    var url = HOST + "/get_knowledge";
+    var url = HOST + "/get_knowledge/";
     $http.get(url).success(function (response) {
         //toolApp.$scope.req_http();
         $scope.knowledges = response.body.know_list;
@@ -203,7 +203,7 @@ blogApp.controller("commentController", function ($scope, $http, $window) {
 
 //lab
 blogApp.controller("labController", function ($scope, $http) {
-     var url = HOST + "/lab/get_lab_info";
+     var url = HOST + "/lab/get_lab_info/";
     $scope.api_status = false;
     $http.get(url).success(function (response) {
         //toolApp.$scope.req_http();
@@ -221,14 +221,14 @@ blogApp.controller("labProxyController", function ($scope, $http) {
     $scope.proxyData = {'private_token': 'w+GbPOV9AqBM07fKvtFEJDou1xgkSiLn', 'reset': true};
     $scope.token = '';
     $scope.processToken = function () {
-        var url = HOST + "/lab/create_token";
+        var url = HOST + "/lab/create_token/";
         $http.get(url).success(function (response) {
             $scope.token = response.body.private_token;
         });
     };
     $http({
             method: 'POST',
-            url: HOST + "/lab/get_proxy",
+            url: HOST + "/lab/get_proxy/",
             data: $.param($scope.proxyData),  // pass in data as strings
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
         })
@@ -265,7 +265,7 @@ adminApp.controller("articleController", function ($scope, $http, $window) {
         $scope.blogData.tags = tags;
         $http({
             method: 'POST',
-            url: HOST + '/blog_admin/new_blog',
+            url: HOST + '/blog_admin/new_blog/',
             data: $.param($scope.blogData),  // pass in data as strings
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
         })
@@ -288,10 +288,10 @@ adminApp.controller("articleController", function ($scope, $http, $window) {
         var url = '';
         if (type == 1) {
             para = {'classify': $scope.newClassify};
-            url = HOST + '/blog_admin/new_classify';
+            url = HOST + '/blog_admin/new_classify/';
         } else {
             para = {'tag': $scope.newTag};
-            url = HOST + '/blog_admin/new_tag';
+            url = HOST + '/blog_admin/new_tag/';
         }
         $http({
             method: 'POST',
@@ -352,7 +352,7 @@ adminApp.controller("knowAdminController", function ($scope, $http, $window) {
         $scope.knowData.env = tmp_str;
         $http({
             method: 'POST',
-            url: HOST + '/blog_admin/new_know',
+            url: HOST + '/blog_admin/new_know/',
             data: $.param($scope.knowData),  // pass in data as strings
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
         })
@@ -372,7 +372,7 @@ adminApp.controller("knowAdminController", function ($scope, $http, $window) {
         para = {'env': $scope.newEnv};
         $http({
             method: 'POST',
-            url: HOST + "/blog_admin/new_env",
+            url: HOST + "/blog_admin/new_env/",
             data: $.param(para),  // pass in data as strings
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
         })
@@ -411,7 +411,7 @@ adminApp.controller("knowAdminController", function ($scope, $http, $window) {
 //blog_list_admin
 adminApp.controller("blogListAdminController", function ($scope, $http, $window) {
     $scope.opt = false;
-    var url = HOST + '/blog_admin/blog_list';
+    var url = HOST + '/blog_admin/blog_list/';
     $http.get(url).success(function (response) {
         if (response.status == 1) {
             $scope.blog_list = response.body.blog_list;
@@ -423,7 +423,7 @@ adminApp.controller("blogListAdminController", function ($scope, $http, $window)
         para = {"type": type, "bid": bid};
         $http({
             method: 'POST',
-            url: HOST + "/blog_admin/blog_opt",
+            url: HOST + "/blog_admin/blog_opt/",
             data: $.param(para),  // pass in data as strings
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
         }).success(function (data) {
@@ -445,7 +445,7 @@ adminApp.controller("blogListAdminController", function ($scope, $http, $window)
 //comment_admin
 adminApp.controller("commentListAdminController", function ($scope, $http, $window) {
     $scope.newR = '';
-    var url = HOST + '/blog_admin/comment_list';
+    var url = HOST + '/blog_admin/comment_list/';
     $http.get(url).success(function (response) {
         if (response.status == 1) {
             $scope.comment_list = response.body.comment_list;
@@ -457,7 +457,7 @@ adminApp.controller("commentListAdminController", function ($scope, $http, $wind
         para = {"type": type, "cid": cid};
         $http({
             method: 'POST',
-            url: HOST + "/blog_admin/comment_opt_del",
+            url: HOST + "/blog_admin/comment_opt_del/",
             data: $.param(para),  // pass in data as strings
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
         }).success(function (data) {
@@ -485,7 +485,7 @@ adminApp.controller("commentListAdminController", function ($scope, $http, $wind
         para.content = con;
         $http({
             method: 'POST',
-            url: HOST + "/blog_admin/comment_opt_new",
+            url: HOST + "/blog_admin/comment_opt_new/",
             data: $.param(para),  // pass in data as strings
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
         }).success(function (data) {
@@ -504,7 +504,7 @@ adminApp.controller("commentListAdminController", function ($scope, $http, $wind
 
 //know_list_admin
 adminApp.controller("knowListAdminController", function ($scope, $http, $window) {
-    var url = HOST + '/blog_admin/know_list';
+    var url = HOST + '/blog_admin/know_list/';
     $http.get(url).success(function (response) {
         if (response.status == 1) {
             $scope.know_list = response.body.know_list;
@@ -516,7 +516,7 @@ adminApp.controller("knowListAdminController", function ($scope, $http, $window)
         para = {"type": type, "kid": kid};
         $http({
             method: 'POST',
-            url: HOST + "/blog_admin/know_opt",
+            url: HOST + "/blog_admin/know_opt/",
             data: $.param(para),  // pass in data as strings
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
         }).success(function (data) {
@@ -549,12 +549,12 @@ adminApp.controller("loginAdminController", function ($scope, $http, $window) {
         $scope.accountData.csrfmiddlewaretoken = csrf;
         $http({
             method: 'POST',
-            url: HOST + "/blog_admin/login",
+            url: HOST + "/blog_admin/login/",
             data: $.param($scope.accountData),  // pass in data as strings
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
         }).success(function (data) {
             if (data.status == 1) {
-                $window.location.href = "/blog_admin/blog_admin";
+                $window.location.href = "/blog_admin/blog_admin/";
             } else {
                 $scope.errMes = data.body.fail_mes;
                 $scope.haveError = true;

@@ -12,7 +12,7 @@ import os
 import uwsgi
 from app.blog_lab.proxy.method import get_proxy, check_proxy
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "NewRaPo.settings.dev")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "NewRaPo.settings.produce")
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()

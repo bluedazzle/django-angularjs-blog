@@ -30,4 +30,5 @@ urlpatterns = patterns('',
     url(r'^fonts/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.FONTS_DIR}),
     url(r'^verify/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.VERIFY_DIR}),
     url(r'^file/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.FILE_DIR}),
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_DIR}),
 )
