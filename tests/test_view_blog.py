@@ -1,9 +1,11 @@
+import json
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from app.myblog.models import Article, Classification, Tag, Knowledge
 from django.utils.importlib import import_module
-import json
+
+from app.myblog.models import Article, Classification, Tag, Knowledge
 
 
 class TestSimplePage(TestCase):

@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from django.db import models
 import datetime
+
+from django.db import models
+
 from app.utils import datetime_to_string, datetime_to_timestamp, datetime_to_utc_string
-from wmd import models as wmd_models
+
 
 
 # Create your models here.

@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 import re
 import copy
+
 from bs4 import BeautifulSoup
+
 from app.NetProcess import *
+
 
 class SProxy(object):
     def __init__(self):

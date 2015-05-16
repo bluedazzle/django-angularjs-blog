@@ -1,11 +1,13 @@
+import json
+
 from django.test import TestCase
 from mock import Mock
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
+
 from app.decorater import login_api, login_require, api_times, back_log
 from app.blog_log.models import AccIP, ReqRecord, BackLog
 
-import json
 
 class TestLoginRequire(TestCase):
     def setUp(self):

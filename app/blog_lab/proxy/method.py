@@ -45,6 +45,7 @@ def check_proxy(args = None):
             useless += 1
         else:
             # print res
-            print item.ip + ' connect success'
+            # print item.ip + ' connect success'
+            item.save()
     content = '代理检验完成，删除无效代理' + str(useless) + '个'
     return content

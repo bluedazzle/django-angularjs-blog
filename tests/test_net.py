@@ -1,6 +1,9 @@
-from django.test import TestCase
-from app.NetProcess import *
 import json
+
+from django.test import TestCase
+
+from app.NetProcess import *
+
 
 class TestNetProcess(TestCase):
     def setUp(self):
@@ -21,7 +24,7 @@ class TestNetProcess(TestCase):
 
     def test_net_post(self):
         postdict = {'private_token': 'rapospectre'}
-        res = self.net.GetResFromRequest('POST', 'http://www.rapospectre.com/lab/get_proxy', postDic=postdict)
+        res = self.net.GetResFromRequest('POST', 'http://www.rapospectre.com/lab/get_proxy/', postDic=postdict)
         self.assertIsInstance(res, str)
         res_json = json.loads(res)
         self.assertEqual(res_json['status'], 1)

@@ -1,24 +1,16 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
-from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-from app.utils import *
-from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse
 from django.contrib.auth import authenticate
-from django.core.context_processors import csrf
-from django.template import RequestContext
-from django.core.paginator import Paginator
-from django.core.paginator import PageNotAnInteger
-from django.core.paginator import EmptyPage
+
+from app.utils import *
 from app.myblog.models import *
-from app.decorater import login_require, login_api
+from app.decorater import login_api
 from app.decorater import login_require
-from misaka import Markdown, HtmlRenderer
-import math
-import markdown
+
+
 # Create your views here.
-import simplejson
 
 def index(req):
     try:

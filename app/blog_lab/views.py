@@ -1,12 +1,13 @@
-from django.shortcuts import render, render_to_response
+import datetime
+
+from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.utils import timezone
-
-import datetime
 
 from app.blog_lab.models import ProxyUser, Proxy
 from app.blog_log.models import ReqRecord
 from app.utils import datetime_to_string, encodejson
+
 
 # Create your views here.
 

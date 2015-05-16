@@ -20,3 +20,15 @@ DATABASES = {
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
+
+# Use nose to run all tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Tell nose to measure coverage on the 'foo' and 'bar' apps
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=app.myblog, app.blog_lab, app.blog_log',
+]
+
+
+INSTALLED_APPS += ('django_nose',)

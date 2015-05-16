@@ -1,5 +1,7 @@
 from django.test import TestCase
+
 from app.myblog.models import Tag, Classification, Article
+
 
 class TestEnv(TestCase):
 

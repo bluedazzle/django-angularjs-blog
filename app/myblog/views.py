@@ -1,21 +1,19 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response
+import math
+
 from django.shortcuts import get_object_or_404
-from django.core.context_processors import csrf
-from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
-from app.utils import *
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, Http404
+from django.shortcuts import render_to_response
+from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.core.paginator import PageNotAnInteger
 from django.core.paginator import EmptyPage
+import markdown
+
+from app.utils import *
 from app.myblog.models import *
 from app.decorater import api_times
-from misaka import Markdown, HtmlRenderer
-import math
-import markdown
-import gfm
+
 # Create your views here.
 
 

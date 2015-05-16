@@ -1,5 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
+
 from app.blog_admin import views
+
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='admin_index'),

@@ -1,7 +1,9 @@
 from django.test import TestCase
-from app.utils import *
 from django.utils.timezone import get_current_timezone
+
+from app.utils import *
 from app.myblog.models import Article, Classification
+
 
 class TestEncodeJson(TestCase):
     def test_ecnode(self):

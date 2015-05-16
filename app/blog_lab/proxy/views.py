@@ -1,10 +1,13 @@
-from app.utils import create_token, encodejson, model_serializer
-from app.blog_lab.models import Proxy, ProxyUser
-from django.http import HttpResponse
-from app.utils import datetime_to_string
-from app.decorater import api_times
 import random
 import copy
+
+from django.http import HttpResponse
+
+from app.utils import create_token, encodejson
+from app.blog_lab.models import Proxy, ProxyUser
+from app.utils import datetime_to_string
+from app.decorater import api_times
+
 
 @api_times
 def create_permission(req):

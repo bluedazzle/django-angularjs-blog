@@ -1,7 +1,8 @@
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
+
 from app.utils import *
 from app.blog_log.models import AccIP, ReqRecord, BackLog
-from django.shortcuts import render, render_to_response
 
 
 BACK_GET_PROXY = 1

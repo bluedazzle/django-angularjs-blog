@@ -1,10 +1,13 @@
-from app.blog_log.models import AccIP, ReqRecord
-from django.utils import timezone
-from django.http import HttpResponse
-from app.decorater import api_times
-from app.utils import encodejson
 import datetime
 import copy
+
+from django.utils import timezone
+from django.http import HttpResponse
+
+from app.blog_log.models import AccIP, ReqRecord
+from app.decorater import api_times
+from app.utils import encodejson
+
 
 @api_times
 def get_chart_message(req):

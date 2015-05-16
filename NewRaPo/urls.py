@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from app.myblog import views
+
 from NewRaPo.settings import base as settings
 from NewRaPo.sitemaps import BlogSitemap, KnowSitemap
+
 
 sitemaps = {
     'blog': BlogSitemap,
