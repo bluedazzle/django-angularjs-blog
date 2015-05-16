@@ -39,3 +39,5 @@ class ArticleDetailView(DetailView):
         return HttpResponse('link')
 
 
+
+

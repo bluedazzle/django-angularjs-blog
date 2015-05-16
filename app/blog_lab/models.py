@@ -32,7 +32,7 @@ class BaseModel(models.Model):
 
 
 class Proxy(BaseModel):
-    ip = models.CharField(max_length=30)
+    ip = models.CharField(max_length=30, unique=True)
     online = models.BooleanField(default=True)
 
     def __unicode__(self):

@@ -9,6 +9,7 @@ def get_proxy(args = None):
     a = NetProcess()
     a.Host = 'www.hao123.com'
     errmsg = ''
+    in_queue = 0
     myproxy = SProxy()
     ip_list = myproxy.renew_proxy()
     newitems = 0
@@ -18,18 +19,21 @@ def get_proxy(args = None):
             if ishave.count() > 0:
                 continue
             a.Proxy = item
-            res = a.GetResFromRequest('GET', "http://www.hao123.com/", 'utf-8', use_proxy=True)
-            if isinstance(res, str):
-                newitems += 1
-                newproxy = Proxy()
-                newproxy.ip = item
-                newproxy.online = True
-                newproxy.save()
+            in_queue += 1
+            a.coroutine_request('GET', "http://www.hao123.com/", 'utf-8', use_proxy=True)
         except Exception, e:
-            except_handle(e)
-            errmsg = str(e)
             continue
+    print '%d proxy in queue' % in_queue
+    print 'start requests...'
+    resp_list = a.coroutine_response(status_only=True)
+    for i, itm in enumerate(resp_list):
+        ishave = Proxy.objects.filter(ip=str(ip_list[i])).exists()
+        if itm and not ishave:
+            new_proxy = Proxy(ip=ip_list[i])
+            new_proxy.save()
+            newitems += 1
     content = '新增代理IP成功，新增数量' + str(newitems) + '条'
+    print content
     return content
 
 @back_log(BACK_CHECK_PROXY)
@@ -39,13 +43,14 @@ def check_proxy(args = None):
     oters = Proxy.objects.all()
     for item in oters:
         a.Proxy = item.ip
-        res = a.GetResFromRequest('GET', "http://www.hao123.com", 'utf-8', use_proxy=True)
-        if not isinstance(res, str):
-            item.delete()
+        a.coroutine_request('GET', "http://www.hao123.com", 'utf-8', use_proxy=True)
+    print '%d proxy in queue' % oters.count()
+    print 'start requests...'
+    resp_list = a.coroutine_response(status_only=True)
+    for i, itm in enumerate(resp_list):
+        if not itm:
+            oters[i].delete()
             useless += 1
-        else:
-            # print res
-            # print item.ip + ' connect success'
-            item.save()
     content = '代理检验完成，删除无效代理' + str(useless) + '个'
+    print content
     return content

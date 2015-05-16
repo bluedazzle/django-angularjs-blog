@@ -28,3 +28,13 @@ class TestNetProcess(TestCase):
         self.assertIsInstance(res, str)
         res_json = json.loads(res)
         self.assertEqual(res_json['status'], 1)
+
+    def test_coroutine_net_req(self):
+        postdict = {'private_token': 'rapospectre'}
+        self.net.coroutine_request('POST', 'http://www.rapospectre.com/lab/get_proxy/', postDic=postdict)
+        self.net.coroutine_request('POST', 'http://www.rapospectre.com/lab/get_proxy/', postDic=postdict)
+        resp_list = self.net.coroutine_response()
+        res_json = json.loads(resp_list[0].content)
+        self.assertEqual(res_json['status'], 1)
+        res_json = json.loads(resp_list[1].content)
+        self.assertEqual(res_json['status'], 1)
