@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 
 from django.shortcuts import render_to_response
@@ -5,7 +6,7 @@ from django.http import HttpResponse
 from django.utils import timezone
 
 from app.blog_lab.models import ProxyUser, Proxy
-from app.blog_log.models import ReqRecord
+from app.blog_log.models import ReqRecord, BackLog
 from app.utils import datetime_to_string, encodejson
 
 
@@ -27,11 +28,16 @@ def get_lab_info(req):
     day_req = ReqRecord.objects.filter(uri='/lab/get_proxy/', create_time__gt=start).count()
     api_control = ReqRecord.objects.filter(create_time__gt=start).count()
     proxy_count = Proxy.objects.all().count()
-    now_time = timezone.now()
+    back_log = BackLog.objects.all()
+    if back_log.exists():
+        back_log = back_log.order_by('-create_time')
+        new_time = datetime_to_string(back_log[0].create_time)
+    else:
+        new_time = '未更新'
     body['api_control'] = api_control
     body['api_status'] = True
     body['total_user'] = total_use
     body['req_times'] = day_req
     body['proxy_num'] = proxy_count
-    body['update_time'] = datetime_to_string(now_time)
+    body['update_time'] = new_time
     return HttpResponse(encodejson(1, body), content_type="application/json")

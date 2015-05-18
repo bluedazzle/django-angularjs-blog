@@ -1,5 +1,5 @@
 //blog angular
-var HOST = 'http://www.rapospectre.com';
+var HOST = 'http://localhost:8000';
 
 function getCookie(name) {
     var cookieValue = null;

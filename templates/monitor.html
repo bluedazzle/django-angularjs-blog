@@ -7,8 +7,21 @@
     {% verbatim %}
     <div class="myContianer" ng-controller="labChartController">
         <div class="article">
-            <div class="myContianer">
-                <canvas id="canvas" height="100"></canvas>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="myContianer">
+                        <br/>
+                        <span>接口访问记录</span>
+                        <canvas id="canvasReq" height="300"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="myContianer">
+                        <br/>
+                        <span>IP访问记录</span>
+                        <canvas id="canvasIp" height="300"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -25,25 +38,42 @@
                 $scope.req_count = response.body.req_count;
                 $scope.ip_list = response.body.ip_rec;
                 $scope.ip_count = response.body.ip_count;
-                var barChartData = {
-                    labels: $scope.read_list,
+                var radarChartDataReq = {
+                    labels: $scope.req_list,
                     datasets: [
                         {
-                            fillColor: "rgba(220,220,220,0.5)",
-                            strokeColor: "rgba(220,220,220,0.8)",
-                            highlightFill: "rgba(220,220,220,0.75)",
-                            highlightStroke: "rgba(220,220,220,1)",
+                            fillColor: "rgba(151,187,205,0.2)",
+                            strokeColor: "rgba(151,187,205,1)",
+                            pointColor: "rgba(151,187,205,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(151,187,205,1)",
                             data: $scope.req_count
                         }
                     ]
 
                 };
-                var ctx = $('#canvas').get(0).getContext("2d");
-                new Chart(ctx).Bar(barChartData, {responsive: false,
-                                  scaleShowGridLines : true});
+                var radarChartDataIp = {
+                    labels: $scope.ip_list,
+                    datasets: [
+                        {
+                            fillColor: "rgba(151,187,205,0.2)",
+                            strokeColor: "rgba(151,187,205,1)",
+                            pointColor: "rgba(151,187,205,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(151,187,205,1)",
+                            data: $scope.ip_count
+                        }
+                    ]
+
+                };
+                var ctx = $('#canvasReq').get(0).getContext("2d");
+                var ctx1 = $('#canvasIp').get(0).getContext("2d");
+                new Chart(ctx).Radar(radarChartDataReq, {responsive: true});
+                new Chart(ctx1).Radar(radarChartDataIp, {responsive: true});
                 return 0;
             });
-            return 0;
         });
     </script>
 {% endblock %}
