@@ -427,7 +427,7 @@ def get_tools(req):
 @csrf_exempt
 def submit_comment(req, bid=None):
     body={}
-    print bid
+    filter_list = [u'rapospectre', u'博主', u'博客主人', u'网站主人', u'作者', u'本文作者', u'文章作者', u'author', u'blog master']
     if bid is None:
         body['fail_mes'] = 'id 不合法'
         return HttpResponse(encodejson(7, body), content_type='application/json')
@@ -437,6 +437,14 @@ def submit_comment(req, bid=None):
         return HttpResponse(encodejson(12, body), content_type='application/json')
     content = req.POST.get('content')
     nick = req.POST.get('nick')
+    # try:
+    #     check = unicode(nick)
+    #     check = check.lower()
+    # except UnicodeEncodeError:
+    #     pass
+    if unicode(nick).lower() in filter_list:
+        body['fail_mes'] = '不要乱写昵称哟～我已经拿小本本记住你了！'
+        return HttpResponse(encodejson(6, body), content_type='application/json')
     blog_list = Article.objects.filter(id=bid)
     if not blog_list.exists():
         body['fail_mes'] = 'id 不合法'
@@ -445,8 +453,14 @@ def submit_comment(req, bid=None):
     if nick == '' or nick is None:
         nick = '匿名用户'
     mid = req.POST.get('mid', None)
+    user = req.session.get('user', None)
+    if user == 'root':
+        nick = 'RaPoSpectre'
+        avatar = 'master.png'
+    else:
+        avatar = 'default.png'
     if mid is None:
-        new_comment = Comment(content=content, author=nick, belong=blog)
+        new_comment = Comment(content=content, author=nick, belong=blog, avatar=avatar)
         new_comment.save()
     else:
         tid = req.POST.get('tid', None)
@@ -458,7 +472,8 @@ def submit_comment(req, bid=None):
             new_reply = CommentReply(replyed=cmmnt,
                                      author=nick,
                                      content=content,
-                                     to=to_the)
+                                     to=to_the,
+                                     avatar=avatar)
             new_reply.save()
             cmmnt.save()
     blog.comment_count += 1
