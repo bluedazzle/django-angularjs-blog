@@ -442,12 +442,27 @@ def submit_comment(req, bid=None):
         body['fail_mes'] = 'id 不合法'
         return HttpResponse(encodejson(7, body), content_type='application/json')
     blog = blog_list[0]
-    blog.comment_count += 1
-    blog.save()
     if nick == '' or nick is None:
         nick = '匿名用户'
-    new_comment = Comment(content=content, author=nick, belong=blog)
-    new_comment.save()
+    mid = req.POST.get('mid', None)
+    if mid is None:
+        new_comment = Comment(content=content, author=nick, belong=blog)
+        new_comment.save()
+    else:
+        tid = req.POST.get('tid', None)
+        to_the = req.POST.get('to', None)
+        cmmnt = Comment.objects.filter(id=mid)
+        if cmmnt.exists():
+            cmmnt = cmmnt[0]
+            cmmnt.reply = True
+            new_reply = CommentReply(replyed=cmmnt,
+                                     author=nick,
+                                     content=content,
+                                     to=to_the)
+            new_reply.save()
+            cmmnt.save()
+    blog.comment_count += 1
+    blog.save()
     # print new_comment.content
     return HttpResponse(encodejson(1, body), content_type='application/json')
 

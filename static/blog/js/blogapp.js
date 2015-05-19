@@ -76,13 +76,14 @@ blogApp.controller("toolController", function ($scope, $http) {
 });
 
 //blog detail
-blogApp.controller("blogDetailController", function ($scope, $http) {
+blogApp.controller("blogDetailController", function ($scope, $http, $window) {
     $scope.verifyp = '';
-    $scope.reply = false;
-    $scope.tothe = 'test';
-    $scope.master = 'test';
-    req_url = window.location.href.toString();
-    url_para = req_url.split('/')[4];
+    $scope.is_reply = false;
+    $scope.to_the = '';
+    $scope.masterId = '';
+    $scope.toId = '';
+    var req_url = window.location.href.toString();
+    var url_para = req_url.split('/')[4];
     $scope.req_http = function (url) {
         url = HOST + '/blog/' + url + "/";
         $http.get(url).success(function (response) {
@@ -91,6 +92,18 @@ blogApp.controller("blogDetailController", function ($scope, $http) {
             $scope.comment = response.body.comment;
             $scope.have_comment = response.body.have_comment;
         });
+    };
+    $scope.cancel_reply = function () {
+        $scope.is_reply = false;
+        $scope.masterId = '';
+        $scope.to_the = '';
+        $scope.toId = '';
+    };
+    $scope.reply = function (to, mid, tid) {
+        $scope.masterId = mid;
+        $scope.toId = tid;
+        $scope.to_the = to;
+        $scope.is_reply = true;
     };
     $scope.submit_comment = function () {
         url = window.location.href.toString();
@@ -116,6 +129,49 @@ blogApp.controller("blogDetailController", function ($scope, $http) {
         $http.get(url).success(function (response) {
             $scope.verifyp = response.body.verify;
         });
+    };
+    $scope.commentData = {'verify': '', 'content': ''};
+    $scope.verify = false;
+    $scope.content = false;
+    req_url = window.location.href.toString();
+    $scope.bid = req_url.split('/')[4];
+    $scope.verifyChange = function () {
+        $scope.verify = false;
+    };
+    $scope.contentChange = function () {
+        $scope.content = false;
+    };
+    $scope.processForm = function () {
+        if ($scope.commentData.verify == '') {
+            $scope.verify = true;
+            if ($scope.commentData.content == '') {
+                $scope.content = true;
+            }
+            return null;
+        }
+        if ($scope.commentData.content == '') {
+            $scope.content = true;
+            return null;
+        }
+        if ($scope.is_reply){
+            $scope.commentData.mid = $scope.masterId;
+            $scope.commentData.tid = $scope.toId;
+            $scope.commentData.to = $scope.to_the;
+        }
+        $http({
+            method: 'POST',
+            url: HOST + '/blog/comment/' + $scope.bid + '/',
+            data: $.param($scope.commentData),  // pass in data as strings
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
+        })
+            .success(function (data) {
+                if (data.status == 1) {
+                    $window.location.reload();
+                } else {
+                    var error_mes = data.body.fail_mes;
+                    alert(error_mes);
+                }
+            });
     };
 });
 
@@ -158,48 +214,6 @@ blogApp.controller("knowController", function ($scope, $http) {
     });
 });
 //ng-cloak class="ng-cloak" ng-app="toolApp" ng-controller="toolController"
-
-//comment
-blogApp.controller("commentController", function ($scope, $http, $window) {
-    $scope.commentData = {'verify': '', 'content': ''};
-    $scope.verify = false;
-    $scope.content = false;
-    req_url = window.location.href.toString();
-    $scope.bid = req_url.split('/')[4];
-    $scope.verifyChange = function () {
-        $scope.verify = false;
-    };
-    $scope.contentChange = function () {
-        $scope.content = false;
-    };
-    $scope.processForm = function () {
-        if ($scope.commentData.verify == '') {
-            $scope.verify = true;
-            if ($scope.commentData.content == '') {
-                $scope.content = true;
-            }
-            return null;
-        }
-        if ($scope.commentData.content == '') {
-            $scope.content = true;
-            return null;
-        }
-        $http({
-            method: 'POST',
-            url: HOST + '/blog/comment/' + $scope.bid + '/',
-            data: $.param($scope.commentData),  // pass in data as strings
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
-        })
-            .success(function (data) {
-                if (data.status == 1) {
-                    $window.location.reload();
-                } else {
-                    var error_mes = data.body.fail_mes;
-                    alert(error_mes);
-                }
-            });
-    };
-});
 
 //lab
 blogApp.controller("labController", function ($scope, $http) {

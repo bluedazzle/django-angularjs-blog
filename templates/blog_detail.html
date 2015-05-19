@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="comment-bottom text-right" style="border-bottom: 2px solid darkgray">
-                        <span>{{ comment.create_time }}<a ng-click="reply()">回复</a></span>
+                        <span>{{ comment.create_time }}<a href="#newComment" class="aReply" ng-click="reply(comment.author, comment.id, comment.id)">回复</a></span>
                     </div>
                     <div ng-repeat="reply in comment.reply" class="row reply">
                         <div class="row">
@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div class="comment-bottom text-right">
-                            <span>{{ reply.create_time }}<a href="#">回复</a></span>
+                            <span>{{ reply.create_time }}<a href="#newComment" class="aReply" ng-click="reply(reply.author, comment.id, reply.id)">回复</a></span>
                         </div>
                     </div>
                 </div>
@@ -72,11 +72,12 @@
                     <small style="cursor: default;">暂无评论</small>
                 </h2>
             </div>
-            <div class="article" ng-controller="commentController">
+            <div class="article" id="newComment">
                 <div class="read-comment">
                     {% endverbatim %}
                     <form class="form-inline text-right" ng-submit="processForm()">
                         {{ csrf_token }}
+                        {% verbatim %}
                         <div ng-class='{"has-error": content}'>
                             <span ng-show="content">请输入评论～</span>
                             <textarea ng-change="contentChange()" name="" style="width: 100%" class="form-control"
@@ -84,9 +85,9 @@
                         </div>
                         <br/>
 
-                        <div class="form-group" style="display: none;">
-                            <span ng-model="master">回复：{{ master }}</span>
-                            <input type="checkbox" ng-model="reply"/>
+                        <div class="form-group" ng-show="is_reply">
+                            <span>回复：{{ to_the }}</span>
+                            <a ng-click="cancel_reply()">取消</a>
                         </div>
                         <div class="form-group">
                             <label class="sr-only" for="exampleInputEmail3">Email address</label>
@@ -99,7 +100,6 @@
                                    class="form-control" id="verify" placeholder="输入验证码">
                             <span ng-show="verify"><small>请输入验证码~</small></span>
                         </div>
-                        {% verbatim %}
                         <a href=""><img src="/verify/{{ verifyp }}" ng-click="refresh_req()" alt=""/></a>
                         {% endverbatim %}
                         <button type="submit" class="btn btn-primary">评论</button>
