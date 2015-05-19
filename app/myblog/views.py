@@ -331,7 +331,7 @@ def detail(req, bid):
             comment_json = model_serializer(itm, datetime_format="string")
             comment_json['have_reply'] = False
             if itm.reply is True:
-                comment_reply = itm.replys.all()
+                comment_reply = itm.replys.all().order_by('create_time')
                 reply_json = model_serializer(comment_reply, datetime_format="string")
                 comment_json['have_reply'] = True
                 comment_json['reply'] = reply_json

@@ -105,6 +105,12 @@ blogApp.controller("blogDetailController", function ($scope, $http, $window) {
         $scope.to_the = to;
         $scope.is_reply = true;
     };
+    $scope.sub_reply = function (to, mid, tid) {
+        $scope.masterId = mid;
+        $scope.toId = tid;
+        $scope.to_the = to;
+        $scope.is_reply = true;
+    };
     $scope.submit_comment = function () {
         url = window.location.href.toString();
         +"comment/"
@@ -232,7 +238,7 @@ blogApp.controller("labController", function ($scope, $http) {
 
 //lab_proxy
 blogApp.controller("labProxyController", function ($scope, $http) {
-    $scope.proxyData = {'private_token': 'w+GbPOV9AqBM07fKvtFEJDou1xgkSiLn', 'reset': true};
+    $scope.proxyData = {'private_token': 'rapospectre', 'reset': true};
     $scope.token = '';
     $scope.processToken = function () {
         var url = HOST + "/lab/create_token/";
