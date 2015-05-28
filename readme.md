@@ -1,4 +1,7 @@
-#A simple blog site powered by django and angularjs#
+#New RaPo Site#
+A simple blog site powered by django and angularjs
+
+---
 
 ##How to use?##
 
