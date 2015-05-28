@@ -74,7 +74,7 @@ class Comment(BaseModel):
     author = models.CharField(max_length=100, default="匿名网友")
     avatar = models.CharField(max_length=300, default="default.png")
     reply = models.BooleanField(default=False)
-    belong = models.ForeignKey(Article)
+    belong = models.ForeignKey(Article, related_name='comments')
 
 
     def __unicode__(self):

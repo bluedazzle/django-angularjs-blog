@@ -49,7 +49,7 @@ def datetime_to_timestamp(datetimet):
 
 def datetime_to_string(datetimet):
     if datetimet.tzinfo is None:
-        return time_str.strftime('%Y-%m-%d %H:%M:%S')
+        return datetimet.strftime('%Y-%m-%d %H:%M:%S')
     time_str = datetimet.astimezone(timezone.get_current_timezone())
     return time_str.strftime('%Y-%m-%d %H:%M:%S')
 

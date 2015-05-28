@@ -454,7 +454,7 @@ def submit_comment(req, bid=None):
         nick = '匿名用户'
     mid = req.POST.get('mid', None)
     user = req.session.get('user', None)
-    if user == 'root':
+    if user == 'rapospectre':
         nick = 'RaPoSpectre'
         avatar = 'master.png'
     else:

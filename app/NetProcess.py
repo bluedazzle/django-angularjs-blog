@@ -86,7 +86,7 @@ class NetProcess(object):
                 if use_proxy:
                     scp = 'http://' + self.__proxy
                     proxy = {"http": scp, }
-                    res = requests.post(requrl, data=postDic, proxies=proxy, headers=self.__headers, timeout=timeout)
+                    res = requests.post(requrl, data=postDic, proxies=proxy, cookies=self.__cookies,  headers=self.__headers, timeout=timeout)
                 else:
                     res = requests.post(requrl, data=postDic, cookies=self.__cookies, headers=self.__headers, timeout=timeout)
             elif str(method).upper() == 'GET':

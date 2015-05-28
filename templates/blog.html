@@ -5,7 +5,7 @@
     <div ng-cloak class="ng-cloak" ng-controller="blogController">
         <div class="myContianer">
             <div class="article" ng-repeat="blog in blogs">
-                <h1 class="text-center">{{ blog.caption }}</h1>
+                <a style="color:#34495e;" href="/blog/{{ blog.id }}/"><h1 class="text-center">{{ blog.caption }}</h1></a>
 
                 <div style="display:inline;">
                     <a href="/classify/{{ blog.classify.id }}/"><span class="label label-primary">{{ blog.classify.c_name }}</span></a>
