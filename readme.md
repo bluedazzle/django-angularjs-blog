@@ -31,8 +31,8 @@ or configure your produce server software like uWSGI、apache.
 
 The simple blog site include four parts:
 
-1、`Blog`: Show your articles and comment your article.
-2、`Knowledge`: Something like a private "baidu zhidao", you can add any kinds of questions and answers.
-3、`Laboratory`: something interesting or new IT technologies you can have a try here.
-4、`About` : a static page you can edit anyting you want to show to others.
+1、`Blog`: Show your articles and comment your article.  
+2、`Knowledge`: Something like a private "baidu zhidao", you can add any kinds of questions and answers.  
+3、`Laboratory`: something interesting or new IT technologies you can have a try here.  
+4、`About` : a static page you can edit anyting you want to show to others.  
 
