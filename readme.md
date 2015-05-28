@@ -21,7 +21,11 @@ or cilick the button "Download ZIP" rightside.
 
     python manage.py syncdb
 
-5、run test server:
+5、run test:
+
+    python manage.py test
+
+6、run test server:
 
     python manage.py runserver
 
