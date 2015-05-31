@@ -130,3 +130,11 @@ code {
 .aReply {
 	transition: 0.5s;
 }
+
+img {
+	width: 100%;
+}
+
+.verify {
+	width: 10%;
+}
