@@ -34,7 +34,7 @@
                 <div ng-repeat="comment in comments" class="comment" style="margin-top: 5px; margin-bottom: 5px;">
                     <div class="row">
                         <div class="col-md-2 text-center">
-                            <img src="/img/{{ comment.avatar }}" width="100px" height="100px" alt=""/>
+                            <img src="/img/{{ comment.avatar }}" class="avatar" width="100px" height="100px" alt=""/>
 
                             <p>{{ comment.author }}</p>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-2 text-center">
-                                <img src="/img/{{ reply.avatar }}" width="100px" height="100px" alt=""/>
+                                <img src="/img/{{ reply.avatar }}" class="avatar" width="100px" height="100px" alt=""/>
 
                                 <p>{{ reply.author }}</p>
                             </div>

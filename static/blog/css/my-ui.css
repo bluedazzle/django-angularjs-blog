@@ -138,3 +138,8 @@ img {
 .verify {
 	width: 10%;
 }
+
+.avatar {
+	width: 100px;
+	height: 100px;
+}
