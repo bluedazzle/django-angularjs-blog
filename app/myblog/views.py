@@ -405,7 +405,6 @@ def get_blog(req):
     return HttpResponse(encodejson(1, body), content_type="application/json")
 
 
-@api_times
 def get_tools(req):
     body={}
     latest_list = Article.objects.filter(publish=True).order_by('-create_time')

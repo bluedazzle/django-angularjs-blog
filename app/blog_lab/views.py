@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import datetime
+import ujson
 
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.utils import timezone
+from dss.Serializer import serializer
 
 from app.blog_lab.models import ProxyUser, Proxy
 from app.blog_log.models import ReqRecord, BackLog
@@ -41,3 +43,13 @@ def get_lab_info(req):
     body['proxy_num'] = proxy_count
     body['update_time'] = new_time
     return HttpResponse(encodejson(1, body), content_type="application/json")
+
+def hy_sign(req):
+    hylog_list = BackLog.objects.filter(log_type=30)
+    hylogs = serializer(hylog_list, datetime_format='string')
+    for itm in hylogs:
+        if itm['status'] is False:
+            jsonr = itm['fail_message']
+            jsonr = eval(jsonr)
+            itm['fail_message'] = jsonr['msg']
+    return render_to_response('hy.html', {'hylog_list': hylogs})

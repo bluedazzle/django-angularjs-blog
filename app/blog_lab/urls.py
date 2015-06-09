@@ -13,5 +13,6 @@ urlpatterns = patterns('',
     url(r'^monitor/$', monitor),
     url(r'^get_lab_info/$', get_lab_info),
     url(r'^get_chart_info/$', get_chart_message),
+    url(r'^hy/$', hy_sign),
     url(r'^get_test_cbv/$', ArticleDetailView.as_view()),
     )

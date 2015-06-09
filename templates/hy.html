@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}RaPo博客｜Django&Python{% endblock %}
+{% block content %}
+    <div class="myContianer" ng-controller="labProxyController">
+        <div class="article">
+            <h1>汇源签到日志</h1>
+
+            <div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>内容</th>
+                        <th>失败信息</th>
+                        <th>时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for hylog in hylog_list %}
+                    <tr>
+                        <th scope="row">{{ hylog.id }}</th>
+                        <td>{{ hylog.content }}</td>
+                        <td>{{ hylog.fail_message }}</td>
+                        <td>{{ hylog.create_time }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
