@@ -22,7 +22,6 @@ def encodejson(status, body):
     tmpjson['body'] = body
     return simplejson.dumps(tmpjson)
 
-
 def create_random_str(count=4):
     if count > 62:
         return 'too long str'
@@ -47,11 +46,11 @@ def datetime_to_timestamp(datetimet):
     datetimet = datetimet.astimezone(timezone.get_current_timezone())
     return time.mktime(datetimet.timetuple())
 
-def datetime_to_string(datetimet):
+def datetime_to_string(datetimet, str_format='%Y-%m-%d %H:%M:%S'):
     if datetimet.tzinfo is None:
-        return datetimet.strftime('%Y-%m-%d %H:%M:%S')
+        return datetimet.strftime(str_format)
     time_str = datetimet.astimezone(timezone.get_current_timezone())
-    return time_str.strftime('%Y-%m-%d %H:%M:%S')
+    return time_str.strftime(str_format)
 
 def datetime_to_utc_string(datetimet):
     return str(timezone.localtime(datetimet))

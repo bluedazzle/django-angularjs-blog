@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 import gevent
 from gevent import monkey as curious_george
@@ -97,12 +98,13 @@ class NetProcess(object):
                 else:
                     res = requests.get(requrl, cookies=self.__cookies, headers=self.__headers, timeout=timeout)
             self.__cookies = res.cookies
-            # print res.headers
+            res.encoding = encodemethod
+            # print res.content
             return res.content
         except Exception, e:
-            # print e.message
+            #print e.message
             # print e
-            return e
+            return 'error: %s' % str(e)
         finally:
             pass
 

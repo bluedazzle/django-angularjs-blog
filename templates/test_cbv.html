@@ -5,10 +5,10 @@
     <title></title>
 </head>
 <body>
-    <h1>{{ object.caption }}</h1>
-    <div>
-        <p>{{ object.content }}</p>
-    </div>
-    <span>{{ object.create_time }}</span>
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create"/>
+</form>
+
 </body>
 </html>

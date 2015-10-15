@@ -351,3 +351,7 @@ def know_opt(req):
     else:
         pass
     return HttpResponse(encodejson(13, body), content_type="application/json")
+
+
+def tt(req):
+    return 0

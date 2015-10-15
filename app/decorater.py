@@ -19,7 +19,6 @@ def login_api(func):
         return res
     return exect
 
-
 def login_require(func):
     def exect(*args, **kw):
         body = {}

@@ -8,3 +8,5 @@ NewRaPo/settings/produce.py
 ver*.png
 .coverage
 huiyuan.py
+sis.py
+sis_date.txt
