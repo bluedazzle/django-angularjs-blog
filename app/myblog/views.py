@@ -531,3 +531,9 @@ def get_index(req):
     body['blog'] = blog_json
     body['pagination'] = pagination
     return HttpResponse(encodejson(1, body), content_type='application/json')
+
+
+def migrate_blog(req):
+    blog_list = Article.objects.all().order_by('-create_time')
+    blog_json = model_serializer(blog_list, deep=True, datetime_format="string")
+    return HttpResponse(encodejson(1, {'blog': blog_json}), content_type='application/json')
