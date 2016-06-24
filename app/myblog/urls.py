@@ -28,4 +28,5 @@ urlpatterns = patterns('',
     url(r'^get_classify/(?P<cid>(.*)+)/$', views.get_classify, name='classify_json'),
     url(r'^index_content/$', views.get_index, name='index_json'),
     url(r'^migrate/$', views.migrate_blog),
+    url(r'^knows/$', views.migrate_knows),
 )

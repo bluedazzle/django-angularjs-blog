@@ -15,7 +15,7 @@ from app.blog_lab.proxy.huiyuan import play
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "NewRaPo.settings.produce")
 
-from django.core.wsgi import get_wsgi_application
+from django.core.wsgi import get_wsgi_applicationß
 application = get_wsgi_application()
 
 uwsgi.register_signal(82, "", get_proxy)

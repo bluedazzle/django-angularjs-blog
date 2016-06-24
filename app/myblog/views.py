@@ -537,3 +537,9 @@ def migrate_blog(req):
     blog_list = Article.objects.all().order_by('-create_time')
     blog_json = model_serializer(blog_list, deep=True, datetime_format="string")
     return HttpResponse(encodejson(1, {'blog': blog_json}), content_type='application/json')
+
+
+def migrate_knows(req):
+    know_list = Knowledge.objects.all().order_by("-create_time")
+    know_json = model_serializer(know_list, datetime_format='string')
+    return HttpResponse(encodejson(1, {'knows': know_json}), content_type='application/json')
